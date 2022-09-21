@@ -16,6 +16,30 @@ html {
 } /*16px*/
 
 :root {
+    /* colors */
+    --primary-50: #e0fcff;
+    --primary-100: #bef8fd;
+    --primary-200: #87eaf2;
+    --primary-300: #54d1db;
+    --primary-400: #38bec9;
+    --primary-500: #2cb1bc;
+    --primary-600: #14919b;
+    --primary-700: #0e7c86;
+    --primary-800: #0a6c74;
+    --primary-900: #044e54;
+
+    /* grey */
+    --grey-50: #f0f4f8;
+    --grey-100: #d9e2ec;
+    --grey-200: #bcccdc;
+    --grey-300: #9fb3c8;
+    --grey-400: #829ab1;
+    --grey-500: #627d98;
+    --grey-600: #486581;
+    --grey-700: #334e68;
+    --grey-800: #243b53;
+    --grey-900: #102a43;
+
     --black: #222;
     --white: #fff;
     --red-light: #f8d7da;
@@ -32,8 +56,8 @@ html {
     --small-text: 0.875rem;
     --extra-small-text: 0.7em;
     /* rest of the vars */
-    --backgroundColor: var(--green-light);
-    --textColor: var(--font-clr);
+    --backgroundColor: var(--primary-100);
+    --textColor: var(--grey-800);
     --borderRadius: 0.25rem;
     --letterSpacing: 1px;
     --transition: 0.3s ease-in-out all;
@@ -120,7 +144,7 @@ ul {
 .btn {
     cursor: pointer;
     color: var(--white);
-    background-color: var(--green-dark);
+    background-color: var(--grey-700);
     border: transparent;
     border-radius: var(--borderRadius);
     letter-spacing: var(--letterSpacing);
@@ -132,6 +156,6 @@ ul {
 }
 
 .btn:hover {
-    background: var(--green-dark-bg);
+    background: var(--grey-600);
     box-shadow: var(--shadow-3);
 }
