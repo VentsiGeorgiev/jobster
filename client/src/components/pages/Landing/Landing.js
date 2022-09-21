@@ -1,20 +1,24 @@
 import heroImage from '../../../assets/hero-illustration.png';
+import styles from './Landing.module.css';
 
 function Landing() {
     return (
-        <main>
-            <section>
-                <div className='hero-info'>
+        <main className='container'>
+            <section className={styles['logo-wrapper']}>
+                <h2 className={styles.logo}>Jobster</h2>
+            </section>
+            <section className={`${styles.hero}`}>
+                <div>
                     <h1>Find the perfect job for you</h1>
                     <p>Search your career opportunity through 10,000+ jobs</p>
-                    <p>Simply start by login or register</p>
-                    <button>Login/Register</button>
+                    <button className={`btn ${styles['hero-btn']}`}>Login / Register</button>
                 </div>
-                <div className='hero-image'>
+                <div>
                     <img src={heroImage} alt="jobster" />
                 </div>
             </section>
         </main>
+
     );
 }
 export default Landing;

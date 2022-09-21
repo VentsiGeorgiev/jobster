@@ -1,0 +1,28 @@
+.logo-wrapper {
+    height: calc(10vh - 2rem);
+    padding-top: 2rem;
+}
+
+.hero {
+    height: calc(100vh - 10vh - 1rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-btn {
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 680px) {
+    .hero {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero {
+        grid-template-columns: 2fr 1fr;
+    }
+}
