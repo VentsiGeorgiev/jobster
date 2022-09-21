@@ -1,4 +1,4 @@
-import Landing from './components/pages/Landing/Landing';
+import { Landing } from './components/pages';
 
 function App() {
     return (

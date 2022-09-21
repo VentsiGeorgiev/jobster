@@ -1,5 +1,5 @@
 import heroImage from '../../../assets/images/hero-illustration.png';
-import Logo from '../../shared/Logo/Logo';
+import { Logo } from '../../shared';
 import styles from './Landing.module.css';
 
 function Landing() {
