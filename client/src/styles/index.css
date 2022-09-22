@@ -222,6 +222,11 @@ ul {
     text-align: center;
 }
 
+.alert-message {
+    font-size: 1rem;
+    padding: 4px 0;
+}
+
 @media screen and (min-width: 860px) {
     .form {
         width: 60%;

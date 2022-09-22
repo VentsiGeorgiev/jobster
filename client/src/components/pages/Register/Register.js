@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Logo, FormInputRow } from '../../shared/';
+import { useAppContext } from '../../../context/appContext';
+import { Logo, FormInputRow, Alert } from '../../shared/';
 
 function Register() {
+    const { displayAlert } = useAppContext();
     const initialState = {
         name: '',
         email: '',
@@ -11,17 +13,26 @@ function Register() {
     };
 
     const [values, setValue] = useState(initialState);
+    const { name, email, password, repass, isMember } = values;
 
     const toggleMember = () => {
         setValue({ ...values, isMember: !values.isMember });
     };
 
     const handleChange = (e) => {
-        console.log(e.target);
+        setValue({ ...values, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!email || !password || !name || !repass) {
+            displayAlert();
+        }
+
+        console.log(values);
+
+
     };
 
     return (
@@ -29,32 +40,34 @@ function Register() {
             <form onSubmit={handleSubmit} className='form'>
                 <div className='align-center'>
                     <Logo />
-                    <h3>{values.isMember ? 'Register' : 'Login'}</h3>
+                    <h3>{isMember ? 'Register' : 'Login'}</h3>
+                    <Alert />
                 </div>
                 <FormInputRow
                     id='name'
                     type='text'
                     labelText='Name'
                     name='name'
-                    value={values.name}
+                    value={name}
                     handleChange={handleChange}
                 />
+
                 <FormInputRow
                     id='email'
                     type='email'
                     labelText='Email'
                     name='email'
-                    value={values.email}
+                    value={email}
                     handleChange={handleChange}
                 />
-                {values.isMember && (
+                {isMember && (
                     <>
                         <FormInputRow
                             id='password'
                             type='password'
                             labelText='Password'
                             name='password'
-                            value={values.password}
+                            value={password}
                             handleChange={handleChange}
                         />
                         <FormInputRow
@@ -62,7 +75,7 @@ function Register() {
                             type='repass'
                             labelText='Repeat password'
                             name='repass'
-                            value={values.repass}
+                            value={repass}
                             handleChange={handleChange}
                         />
                     </>)
@@ -70,15 +83,15 @@ function Register() {
 
                 <div className='form-row align-center'>
                     <button className='btn btn-primary' >
-                        {values.isMember ? 'Sign Up' : 'Sign In'}
+                        {isMember ? 'Sign Up' : 'Sign In'}
                     </button>
                     <p>
-                        {values.isMember ? 'Already have an account?' : 'Don\'t have an account yet?'}
+                        {isMember ? 'Already have an account?' : 'Don\'t have an account yet?'}
                         <button
                             onClick={toggleMember}
                             className='btn btn-secondary'
                         >
-                            {values.isMember ? 'Sign In' : 'Sign Up'}
+                            {isMember ? 'Sign In' : 'Sign Up'}
                         </button>
                     </p>
                 </div>
