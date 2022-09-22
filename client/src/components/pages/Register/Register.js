@@ -26,8 +26,11 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!email || !password || !name || !repass) {
-            displayAlert();
+        if (!email || !password || (!name && isMember)) {
+            displayAlert('All Fields Are Required', 'danger');
+        }
+        if (isMember && password !== repass) {
+            displayAlert('Passwords don\'t match', 'danger');
         }
 
         console.log(values);
@@ -43,15 +46,16 @@ function Register() {
                     <h3>{isMember ? 'Register' : 'Login'}</h3>
                     <Alert />
                 </div>
-                <FormInputRow
-                    id='name'
-                    type='text'
-                    labelText='Name'
-                    name='name'
-                    value={name}
-                    handleChange={handleChange}
-                />
-
+                {isMember &&
+                    <FormInputRow
+                        id='name'
+                        type='text'
+                        labelText='Name'
+                        name='name'
+                        value={name}
+                        handleChange={handleChange}
+                    />
+                }
                 <FormInputRow
                     id='email'
                     type='email'
@@ -60,25 +64,24 @@ function Register() {
                     value={email}
                     handleChange={handleChange}
                 />
-                {isMember && (
-                    <>
-                        <FormInputRow
-                            id='password'
-                            type='password'
-                            labelText='Password'
-                            name='password'
-                            value={password}
-                            handleChange={handleChange}
-                        />
-                        <FormInputRow
-                            id='repass'
-                            type='repass'
-                            labelText='Repeat password'
-                            name='repass'
-                            value={repass}
-                            handleChange={handleChange}
-                        />
-                    </>)
+
+                <FormInputRow
+                    id='password'
+                    type='password'
+                    labelText='Password'
+                    name='password'
+                    value={password}
+                    handleChange={handleChange}
+                />
+                {isMember &&
+                    <FormInputRow
+                        id='repass'
+                        type='password'
+                        labelText='Repeat password'
+                        name='repass'
+                        value={repass}
+                        handleChange={handleChange}
+                    />
                 }
 
                 <div className='form-row align-center'>
@@ -88,6 +91,7 @@ function Register() {
                     <p>
                         {isMember ? 'Already have an account?' : 'Don\'t have an account yet?'}
                         <button
+                            type='button'
                             onClick={toggleMember}
                             className='btn btn-secondary'
                         >
