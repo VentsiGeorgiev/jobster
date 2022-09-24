@@ -57,3 +57,17 @@ export async function register(user) {
 
     return result;
 }
+export async function login(user) {
+    const result = await post('/api/v1/auth/login', user);
+
+    const data = {
+        id: result._id,
+        name: result.name,
+        email: result.email,
+    };
+
+    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('token', result.token);
+
+    return result;
+}

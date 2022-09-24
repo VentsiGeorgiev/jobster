@@ -1,9 +1,10 @@
 import { createContext, useContext, useReducer } from 'react';
-import { register } from '../api/api';
+import { register, login } from '../api/api';
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
     ERROR,
+    LOGIN_USER,
     REGISTER_USER,
 } from './actions';
 import reducer from './reducer';
@@ -12,7 +13,7 @@ const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
     user: user ? user : null,
-    isLoading: true,
+    isLoading: false,
     showAlert: false,
     message: '',
     alertType: '',
@@ -44,10 +45,22 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const loginUser = async (user) => {
+        try {
+            const response = await login(user);
+            dispatch({ type: LOGIN_USER, payload: response });
+        } catch (error) {
+            dispatch({ type: ERROR, payload: error.message });
+            clearAlert();
+        }
+    };
+
+
     return <AppContext.Provider value={{
         ...state,
         displayAlert,
         registerUser,
+        loginUser,
     }}
     >
         {children}

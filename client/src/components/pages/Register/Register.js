@@ -3,7 +3,7 @@ import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 
 function Register() {
-    const { displayAlert, registerUser, isLoading } = useAppContext();
+    const { displayAlert, registerUser, loginUser, isLoading } = useAppContext();
     const initialState = {
         name: '',
         email: '',
@@ -36,7 +36,11 @@ function Register() {
 
 
         if (!isMember) {
-            console.log('login');
+            const user = {
+                email,
+                password
+            };
+            loginUser(user);
         } else {
             const user = {
                 name,

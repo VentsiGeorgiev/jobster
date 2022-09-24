@@ -2,6 +2,7 @@ import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
     ERROR,
+    LOGIN_USER,
     REGISTER_USER,
 } from './actions';
 
@@ -34,6 +35,12 @@ const reducer = (state, action) => {
                 showAlert: true,
                 message: action.payload,
                 alertType: 'danger',
+            };
+        case LOGIN_USER:
+
+            return {
+                ...state,
+                user: action.payload
             };
 
         default:
