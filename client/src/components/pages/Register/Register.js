@@ -43,7 +43,6 @@ function Register() {
                 email,
                 password
             };
-            console.log('register');
             registerUser(user);
         }
 

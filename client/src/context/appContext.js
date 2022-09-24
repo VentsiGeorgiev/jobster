@@ -8,8 +8,10 @@ import {
 } from './actions';
 import reducer from './reducer';
 
+const user = JSON.parse(localStorage.getItem('user'));
+
 const initialState = {
-    user: null,
+    user: user ? user : null,
     isLoading: true,
     showAlert: false,
     message: '',
