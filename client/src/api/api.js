@@ -2,7 +2,8 @@ async function request(url, options) {
     try {
         const response = await fetch(url, options);
 
-        if (response.status <= 199 && response.status >= 300) {
+
+        if (response.status <= 199 || response.status >= 300) {
             const err = await response.json();
             throw new Error(err.message);
         }
@@ -15,7 +16,7 @@ async function request(url, options) {
         }
 
     } catch (error) {
-        throw new Error(error.message);
+        throw error;
     }
 }
 

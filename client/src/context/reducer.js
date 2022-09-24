@@ -1,6 +1,7 @@
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
+    ERROR,
     REGISTER_USER,
 } from './actions';
 
@@ -21,12 +22,18 @@ const reducer = (state, action) => {
                 alertType: '',
             };
         case REGISTER_USER:
-            console.log('REGISTER_USER - REDUCER');
-            console.log(action.payload);
 
             return {
                 ...state,
                 user: action.payload
+            };
+        case ERROR:
+
+            return {
+                ...state,
+                showAlert: true,
+                message: action.payload,
+                alertType: 'danger',
             };
 
         default:

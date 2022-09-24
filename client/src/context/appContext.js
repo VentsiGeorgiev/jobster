@@ -3,6 +3,7 @@ import { register } from '../api/api';
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
+    ERROR,
     REGISTER_USER,
 } from './actions';
 import reducer from './reducer';
@@ -36,8 +37,8 @@ const AppProvider = ({ children }) => {
             const response = await register(user);
             dispatch({ type: REGISTER_USER, payload: response });
         } catch (error) {
-            console.log('error');
-            console.log(error);
+            dispatch({ type: ERROR, payload: error.message });
+            clearAlert();
         }
     };
 
