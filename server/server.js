@@ -5,6 +5,7 @@ import connectDB from './config/db.js';
 const PORT = process.env.PORT;
 import auth from './routes/auth.js';
 import errorHandler from './middleware/error.js';
+import notFoundMiddleware from './middleware/notFound.js';
 
 connectDB();
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/v1/auth', auth);
 
+app.use(notFoundMiddleware);
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

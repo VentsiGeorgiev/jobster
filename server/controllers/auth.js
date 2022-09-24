@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 
 const register = async (req, res) => {
     try {
+        console.log(req.body);
         const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
@@ -33,6 +34,7 @@ const register = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
+        console.log(error);
     }
 };
 
