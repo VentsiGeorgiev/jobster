@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
-    const { displayAlert, registerUser, loginUser, isLoading } = useAppContext();
+    const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
     const initialState = {
         name: '',
         email: '',
@@ -14,6 +15,7 @@ function Register() {
 
     const [values, setValue] = useState(initialState);
     const { name, email, password, repass, isMember } = values;
+    const navigate = useNavigate();
 
     const toggleMember = () => {
         setValue({ ...values, isMember: !values.isMember });
@@ -22,6 +24,13 @@ function Register() {
     const handleChange = (e) => {
         setValue({ ...values, [e.target.name]: e.target.value });
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+
+    }, [user, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,8 +41,6 @@ function Register() {
         if (isMember && password !== repass) {
             displayAlert('Passwords don\'t match', 'danger');
         }
-
-
 
         if (!isMember) {
             const user = {
@@ -49,7 +56,6 @@ function Register() {
             };
             registerUser(user);
         }
-
 
     };
 
