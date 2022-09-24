@@ -3,7 +3,7 @@ import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 
 function Register() {
-    const { displayAlert } = useAppContext();
+    const { displayAlert, registerUser, isLoading } = useAppContext();
     const initialState = {
         name: '',
         email: '',
@@ -33,7 +33,19 @@ function Register() {
             displayAlert('Passwords don\'t match', 'danger');
         }
 
-        console.log(values);
+
+
+        if (!isMember) {
+            console.log('login');
+        } else {
+            const user = {
+                name,
+                email,
+                password
+            };
+            console.log('register');
+            registerUser(user);
+        }
 
 
     };

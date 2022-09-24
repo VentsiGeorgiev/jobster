@@ -1,4 +1,8 @@
-import { DISPLAY_ALERT, CLEAR_ALERT } from './actions';
+import {
+    CLEAR_ALERT,
+    DISPLAY_ALERT,
+    REGISTER_USER,
+} from './actions';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -15,6 +19,14 @@ const reducer = (state, action) => {
                 showAlert: false,
                 message: '',
                 alertType: '',
+            };
+        case REGISTER_USER:
+            console.log('REGISTER_USER - REDUCER');
+            console.log(action.payload);
+
+            return {
+                ...state,
+                user: action.payload
             };
 
         default:
