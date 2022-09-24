@@ -1,9 +1,12 @@
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
-    ERROR,
-    LOGIN_USER,
-    REGISTER_USER,
+    REGISTER_USER_PENDING,
+    REGISTER_USER_REJECTED,
+    REGISTER_USER_SUCCESS,
+    LOGIN_USER_PENDING,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_REJECTED
 } from './actions';
 
 const reducer = (state, action) => {
@@ -22,25 +25,45 @@ const reducer = (state, action) => {
                 message: '',
                 alertType: '',
             };
-        case REGISTER_USER:
-
+        case REGISTER_USER_PENDING:
             return {
                 ...state,
-                user: action.payload
+                isLoading: true
             };
-        case ERROR:
-
+        case REGISTER_USER_SUCCESS:
             return {
                 ...state,
+                isLoading: false,
+                user: action.payload,
+            };
+        case REGISTER_USER_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
                 showAlert: true,
+                isError: true,
                 message: action.payload,
                 alertType: 'danger',
             };
-        case LOGIN_USER:
-
+        case LOGIN_USER_PENDING:
             return {
                 ...state,
-                user: action.payload
+                isLoading: true
+            };
+        case LOGIN_USER_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                user: action.payload,
+            };
+        case LOGIN_USER_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
             };
 
         default:

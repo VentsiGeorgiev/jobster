@@ -3,9 +3,12 @@ import { register, login } from '../api/api';
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
-    ERROR,
-    LOGIN_USER,
-    REGISTER_USER,
+    REGISTER_USER_PENDING,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_REJECTED,
+    LOGIN_USER_PENDING,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_REJECTED,
 } from './actions';
 import reducer from './reducer';
 
@@ -15,6 +18,7 @@ const initialState = {
     user: user ? user : null,
     isLoading: false,
     showAlert: false,
+    isError: false,
     message: '',
     alertType: '',
 };
@@ -36,21 +40,23 @@ const AppProvider = ({ children }) => {
     };
 
     const registerUser = async (user) => {
+        dispatch({ type: REGISTER_USER_PENDING });
         try {
             const response = await register(user);
-            dispatch({ type: REGISTER_USER, payload: response });
+            dispatch({ type: REGISTER_USER_SUCCESS, payload: response });
         } catch (error) {
-            dispatch({ type: ERROR, payload: error.message });
+            dispatch({ type: REGISTER_USER_REJECTED, payload: error.message });
             clearAlert();
         }
     };
 
     const loginUser = async (user) => {
+        dispatch({ type: LOGIN_USER_PENDING });
         try {
             const response = await login(user);
-            dispatch({ type: LOGIN_USER, payload: response });
+            dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
         } catch (error) {
-            dispatch({ type: ERROR, payload: error.message });
+            dispatch({ type: LOGIN_USER_REJECTED, payload: error.message });
             clearAlert();
         }
     };
