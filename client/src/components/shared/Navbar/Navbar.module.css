@@ -2,6 +2,29 @@
     height: 10vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.nav-text {
+    font-size: 1.4rem;
+}
+
+.nav-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.1rem;
+}
+
+.nav-icon {
+    font-size: 1.6rem;
+}
+
+.hide {
+    display: none;
 }

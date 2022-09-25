@@ -1,12 +1,19 @@
+import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import styles from './LargeSidebar.module.css';
 
 function LargeSidebar() {
+    const { showSidebar } = useJobsContext();
+
     return (
-        <aside className={styles['sidebar-container']}>
-            <div className={styles.content}>
-                <h1>Sidebar</h1>
-            </div>
-        </aside>
+        <>
+            {showSidebar &&
+                <aside className={showSidebar ? `${styles['sidebar-container']}` : styles.show}>
+                    <div className={styles.content}>
+                        <h1>Sidebar</h1>
+                    </div>
+                </aside>
+            }
+        </>
     );
 }
 
