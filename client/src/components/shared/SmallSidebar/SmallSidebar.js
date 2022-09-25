@@ -23,16 +23,40 @@ function SmallSidebar() {
                 <nav>
                     <menu className={styles['nav-menu']}>
                         <li>
-                            <NavLink to='/'><ImStatsBars /> Stats</NavLink>
+                            <NavLink
+                                onClick={toggleSidebar}
+                                to='/'
+                            >
+                                <ImStatsBars />
+                                Stats
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to='all-jobs'><AiOutlineFileSearch /> All Jobs</NavLink>
+                            <NavLink
+                                onClick={toggleSidebar}
+                                to='all-jobs'
+                            >
+                                <AiOutlineFileSearch />
+                                All Jobs
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to='add-job'><AiOutlineFileAdd /> Add Job</NavLink>
+                            <NavLink
+                                onClick={toggleSidebar}
+                                to='add-job'
+                            >
+                                <AiOutlineFileAdd />
+                                Add Job
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to='profile'><AiOutlineUser /> Profile</NavLink>
+                            <NavLink
+                                onClick={toggleSidebar}
+                                to='profile'
+                            >
+                                <AiOutlineUser />
+                                Profile
+                            </NavLink>
                         </li>
                     </menu>
                 </nav>
