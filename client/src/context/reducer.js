@@ -6,7 +6,8 @@ import {
     REGISTER_USER_SUCCESS,
     LOGIN_USER_PENDING,
     LOGIN_USER_SUCCESS,
-    LOGIN_USER_REJECTED
+    LOGIN_USER_REJECTED,
+    LOGOUT_USER
 } from './actions';
 
 const reducer = (state, action) => {
@@ -64,6 +65,11 @@ const reducer = (state, action) => {
                 isError: true,
                 message: action.payload,
                 alertType: 'danger',
+            };
+        case LOGOUT_USER:
+            return {
+                ...state,
+                user: null,
             };
 
         default:

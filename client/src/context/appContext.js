@@ -9,6 +9,7 @@ import {
     LOGIN_USER_PENDING,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_REJECTED,
+    LOGOUT_USER,
 } from './actions';
 import reducer from './reducer';
 
@@ -61,12 +62,19 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const logout = () => {
+        dispatch({ type: LOGOUT_USER });
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+    };
+
 
     return <AppContext.Provider value={{
         ...state,
         displayAlert,
         registerUser,
         loginUser,
+        logout,
     }}
     >
         {children}
