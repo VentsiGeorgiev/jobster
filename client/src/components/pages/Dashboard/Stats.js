@@ -1,6 +1,9 @@
+import styles from './Stats.module.css';
 function Stats() {
     return (
-        <div>Stats</div>
+        <section className={styles['stats-wrapper']}>
+            <h1>stats</h1>
+        </section>
     );
 }
 

@@ -1,0 +1,18 @@
+.sidebar-container {
+    background-color: aliceblue;
+    display: none;
+}
+
+@media screen and (min-width: 860px) {
+    .sidebar-container {
+        background-color: orange;
+        display: block;
+        min-height: 100vh;
+        height: 100%;
+        width: 250px;
+    }
+    .content {
+        position: sticky;
+        top: 0;
+    }
+}
