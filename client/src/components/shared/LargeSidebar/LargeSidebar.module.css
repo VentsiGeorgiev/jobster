@@ -3,9 +3,32 @@
     display: none;
 }
 
+.btn-wrapper {
+    text-align: right;
+    margin-right: 12px;
+}
+
+.close-icon {
+    font-size: 2rem;
+}
+
+.nav-menu li {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.nav-menu li:hover {
+    background-color: var(--primary-100);
+    padding-left: 0.5rem;
+    transition: all 0.2s linear;
+}
+
+.nav-menu li a {
+    color: var(--primary-800);
+}
+
 @media screen and (min-width: 860px) {
     .sidebar-container {
-        background-color: orange;
         display: block;
         min-height: 100vh;
         height: 100%;
@@ -15,6 +38,7 @@
     .content {
         position: sticky;
         top: 0;
+        padding: 2rem;
     }
 
     .show {
