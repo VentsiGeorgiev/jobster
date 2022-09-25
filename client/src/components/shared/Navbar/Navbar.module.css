@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-evenly;
     box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-100);
 }
 
 .nav-text {
@@ -27,4 +28,23 @@
 
 .hide {
     display: none;
+}
+
+.nav-text-wrapper {
+    display: none;
+}
+
+.nav-logo {
+    width: 5rem;
+}
+
+@media screen and (min-width: 860px) {
+    .nav-logo {
+        display: none;
+        font-size: 1rem;
+    }
+
+    .nav-text-wrapper {
+        display: unset;
+    }
 }

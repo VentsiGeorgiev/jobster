@@ -135,6 +135,10 @@ ul {
     padding: 0;
 }
 
+li {
+    list-style: none;
+}
+
 .container {
     width: var(--width);
     max-width: var(--max-width);

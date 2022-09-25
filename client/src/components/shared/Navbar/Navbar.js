@@ -2,6 +2,7 @@ import { useAppContext } from '../../../context/appContext';
 import styles from './Navbar.module.css';
 import { AiOutlineMenuFold, AiOutlineLogout } from 'react-icons/ai';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
+import Logo from '../Logo/Logo';
 
 function Navbar() {
     const { user, logout } = useAppContext();
@@ -19,7 +20,10 @@ function Navbar() {
                 </button>
             </div>
 
-            <div>
+            <div className={styles['nav-logo']}>
+                <Logo />
+            </div>
+            <div className={styles['nav-text-wrapper']}>
                 <h2 className={styles['nav-text']}>Welcome to Jobster, {user.name}!</h2>
             </div>
             <div>
