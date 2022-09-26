@@ -77,7 +77,22 @@ const login = async (req, res) => {
 
 const update = async (req, res) => {
 
-    res.json({ message: 'update user' });
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            user.name = req.body.name;
+            const updatedUser = await user.save();
+
+            res.json({
+                name: updatedUser.name
+            });
+
+        };
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 
 };
 
