@@ -75,4 +75,10 @@ const login = async (req, res) => {
     }
 };
 
-export { register, login };
+const update = async (req, res) => {
+
+    res.json({ message: 'update user' });
+
+};
+
+export { register, login, update };
