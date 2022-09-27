@@ -3,6 +3,9 @@ import {
     CREATE_JOB_PENDING,
     CREATE_JOB_SUCCESS,
     CREATE_JOB_REJECTED,
+    FETCH_ALL_JOBS_PENDING,
+    FETCH_ALL_JOBS_SUCCESS,
+    FETCH_ALL_JOBS_REJECTED,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -24,6 +27,26 @@ const reducer = (state, action) => {
                 job: action.payload
             };
         case CREATE_JOB_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case FETCH_ALL_JOBS_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_ALL_JOBS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                allJobs: action.payload
+            };
+        case FETCH_ALL_JOBS_REJECTED:
             return {
                 ...state,
                 isLoading: false,

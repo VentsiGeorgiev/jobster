@@ -1,0 +1,12 @@
+.all-jobs-search-container {
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1rem;
+}
+.all-jobs-container {
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1rem;
+}

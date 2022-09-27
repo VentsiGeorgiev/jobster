@@ -93,3 +93,8 @@ export async function createJobOffer(job) {
     const result = await post('/api/v1/job/add-job', job);
     return result;
 }
+
+export async function getAllJobs() {
+    const result = await get('/api/v1/job/all-jobs');
+    return result;
+}
