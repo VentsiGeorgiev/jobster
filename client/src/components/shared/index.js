@@ -5,6 +5,7 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import Navbar from './Navbar/Navbar';
 import SmallSidebar from './SmallSidebar/SmallSidebar';
 import LargeSidebar from './LargeSidebar/LargeSidebar';
+import FormRow from './FormInputRow/FormInputRow';
 export {
     Logo,
     FormInputRow,
@@ -12,5 +13,6 @@ export {
     SharedLayout,
     Navbar,
     SmallSidebar,
-    LargeSidebar
+    LargeSidebar,
+    FormRow
 };

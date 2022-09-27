@@ -1,6 +1,13 @@
+import { useAppContext } from '../../../context/appContext';
+import styles from './Profile.module.css';
+
 function Profile() {
+    const { user } = useAppContext();
+
     return (
-        <div>Profile</div>
+        <section className={styles['profile-container']}>
+            <h2>{user.name}</h2>
+        </section>
     );
 }
 

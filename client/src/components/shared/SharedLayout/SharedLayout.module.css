@@ -1,16 +1,21 @@
 .dashboard {
     display: grid;
     grid-template-columns: 1fr;
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: var(--grey-50);
 }
 
 .full-dashboard {
     grid-template-columns: 1fr;
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: var(--grey-50);
 }
 .dashboard-page {
     width: 90vw;
     margin: 0 auto;
     padding: 2rem 0;
-    background-color: blue;
 }
 @media (min-width: 860px) {
     .dashboard {

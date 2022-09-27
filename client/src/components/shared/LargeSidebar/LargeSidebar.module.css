@@ -1,5 +1,5 @@
 .sidebar-container {
-    background-color: aliceblue;
+    background-color: var(--white);
     display: none;
 }
 
