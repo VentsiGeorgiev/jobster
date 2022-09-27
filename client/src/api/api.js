@@ -1,3 +1,5 @@
+import { getToken } from '../utils/user';
+
 async function request(url, options) {
     try {
         const response = await fetch(url, options);
@@ -25,6 +27,11 @@ function createOptions(method = 'get', data) {
         method,
         headers: {}
     };
+
+    const token = getToken();
+    if (token !== null) {
+        options.headers.Authorization = `Bearer ${token}`;
+    }
 
     if (data !== undefined) {
         options.headers['Content-Type'] = 'application/json';

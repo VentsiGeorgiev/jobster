@@ -4,6 +4,7 @@ dotenv.config();
 import connectDB from './config/db.js';
 const PORT = process.env.PORT;
 import auth from './routes/auth.js';
+import job from './routes/job.js';
 import errorHandler from './middleware/error.js';
 import notFoundMiddleware from './middleware/notFound.js';
 import cors from './middleware/cors.js';
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/job', job);
 
 app.use(notFoundMiddleware);
 app.use(errorHandler);
