@@ -1,0 +1,45 @@
+.job-section {
+    background-color: var(--white);
+    padding: 1rem;
+    box-shadow: var(--shadow-2);
+}
+
+.header {
+    border-bottom: 1px solid var(--primary-600);
+}
+
+.title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    padding-right: 4px;
+}
+
+.header-job-position {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.header-job-company {
+    font-size: 1.1rem;
+}
+
+.footer button {
+    margin-left: 1rem;
+}
+
+.job-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.job-icon {
+    color: var(--primary-600);
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.job-row p {
+    font-size: 1.2rem;
+}

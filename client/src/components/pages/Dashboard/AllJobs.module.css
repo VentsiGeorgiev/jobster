@@ -4,9 +4,17 @@
     box-shadow: var(--shadow-2);
     margin-bottom: 1rem;
 }
+
 .all-jobs-container {
-    background-color: var(--white);
-    padding: 2rem;
-    box-shadow: var(--shadow-2);
-    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+    .all-jobs-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
 }

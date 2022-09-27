@@ -6,6 +6,7 @@ import Navbar from './Navbar/Navbar';
 import SmallSidebar from './SmallSidebar/SmallSidebar';
 import LargeSidebar from './LargeSidebar/LargeSidebar';
 import FormRow from './FormInputRow/FormInputRow';
+import Job from './Job/Job';
 export {
     Logo,
     FormInputRow,
@@ -14,5 +15,6 @@ export {
     Navbar,
     SmallSidebar,
     LargeSidebar,
-    FormRow
+    FormRow,
+    Job
 };

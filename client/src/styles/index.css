@@ -187,6 +187,15 @@ li {
     align-items: center;
 }
 
+.btn-edit {
+    background-color: #fcefc7;
+    color: #ad8a3f;
+}
+.btn-delete {
+    background-color: #f8d7da;
+    color: #882040;
+}
+
 /* # Form */
 
 .form {
