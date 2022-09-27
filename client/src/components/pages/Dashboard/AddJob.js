@@ -2,15 +2,19 @@ import FormRow from '../../shared/FormInputRow/FormInputRow';
 import styles from './AddJob.module.css';
 import { IoIosArrowDropdownCircle } from 'react-icons/io';
 import { useState } from 'react';
+import { useJobsContext } from '../../../context/jobsContext/jobsContext';
+import { useAppContext } from '../../../context/appContext';
+import { Alert } from '../../shared';
 
 function AddJob() {
-
+    const { createJob } = useJobsContext();
+    const { displayAlert, isError } = useAppContext();
     const initialState = {
         company: '',
         position: '',
         status: 'Interview',
-        jobType: 'Full-Time',
-        jobLocation: 'sdf1',
+        jobType: 'Full-time',
+        jobLocation: '',
     };
     const [formData, setFormData] = useState(initialState);
     const { company, position, status, jobType, jobLocation } = formData;
@@ -25,7 +29,15 @@ function AddJob() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
+        const isFieldEmpty = Object.values(formData).some(x => x.trim() === '');
+        if (isFieldEmpty) {
+            displayAlert('All Fields Are Required', 'danger');
+        }
+
+        createJob(formData);
         console.log(formData);
+
     };
 
     return (
@@ -33,6 +45,7 @@ function AddJob() {
             <h2>Create Job Offer</h2>
 
             <form onSubmit={submitHandler}>
+                {isError && <Alert />}
                 <FormRow
                     id='company'
                     name='company'
@@ -60,9 +73,9 @@ function AddJob() {
                         value={status}
                         onChange={handleChange}
                     >
-                        <option value='interview'>Interview</option>
-                        <option value='declined'>Declined</option>
-                        <option value='pending'>Pending</option>
+                        <option value='Interview'>Interview</option>
+                        <option value='Declined'>Declined</option>
+                        <option value='Pending'>Pending</option>
                     </select>
                     <IoIosArrowDropdownCircle className='dropdown-icon' />
                 </div>
@@ -76,10 +89,10 @@ function AddJob() {
                         value={jobType}
                         onChange={handleChange}
                     >
-                        <option value='full-time'>Full Time</option>
-                        <option value='part-time'>Part Time</option>
-                        <option value='remote'>Remote</option>
-                        <option value='internship'>Internship</option>
+                        <option value='Full-time'>Full time</option>
+                        <option value='Part-time'>Part time</option>
+                        <option value='Remote'>Remote</option>
+                        <option value='Internship'>Internship</option>
                     </select>
                     <IoIosArrowDropdownCircle className='dropdown-icon' />
                 </div>

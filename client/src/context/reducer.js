@@ -16,6 +16,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 showAlert: true,
+                isError: true,
                 message: action.payload.msg,
                 alertType: action.payload.type,
             };
@@ -23,6 +24,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 showAlert: false,
+                isError: false,
                 message: '',
                 alertType: '',
             };

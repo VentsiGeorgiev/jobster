@@ -78,3 +78,9 @@ export async function login(user) {
 
     return result;
 }
+
+// # Jobs
+export async function createJobOffer(job) {
+    const result = await post('/api/v1/job/add-job', job);
+    return result;
+}
