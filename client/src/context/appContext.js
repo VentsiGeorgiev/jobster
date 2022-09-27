@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import { register, login } from '../api/api';
+import { register, login, update } from '../api/api';
 import {
     CLEAR_ALERT,
     DISPLAY_ALERT,
@@ -10,6 +10,10 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_REJECTED,
     LOGOUT_USER,
+    UPDATE_USER_PENDING,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_REJECTED,
+    TOGGLE_EDIT,
 } from './actions';
 import reducer from './reducer';
 
@@ -20,6 +24,7 @@ const initialState = {
     isLoading: false,
     showAlert: false,
     isError: false,
+    isEditing: false,
     message: '',
     alertType: '',
 };
@@ -68,6 +73,21 @@ const AppProvider = ({ children }) => {
         localStorage.removeItem('token');
     };
 
+    const updateUser = async (data) => {
+        dispatch({ type: UPDATE_USER_PENDING });
+        try {
+            const response = await update(data);
+            dispatch({ type: UPDATE_USER_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: UPDATE_USER_REJECTED, payload: error.message });
+            clearAlert();
+        }
+    };
+
+    const toggleEdit = () => {
+        dispatch({ type: TOGGLE_EDIT });
+    };
+
 
     return <AppContext.Provider value={{
         ...state,
@@ -75,6 +95,8 @@ const AppProvider = ({ children }) => {
         registerUser,
         loginUser,
         logout,
+        updateUser,
+        toggleEdit,
     }}
     >
         {children}

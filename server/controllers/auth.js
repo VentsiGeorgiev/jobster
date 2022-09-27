@@ -84,9 +84,7 @@ const update = async (req, res) => {
             user.name = req.body.name;
             const updatedUser = await user.save();
 
-            res.json({
-                name: updatedUser.name
-            });
+            res.json(updatedUser);
 
         };
 

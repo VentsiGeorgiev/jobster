@@ -7,7 +7,11 @@ import {
     LOGIN_USER_PENDING,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_REJECTED,
-    LOGOUT_USER
+    LOGOUT_USER,
+    UPDATE_USER_PENDING,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_REJECTED,
+    TOGGLE_EDIT,
 } from './actions';
 
 const reducer = (state, action) => {
@@ -72,6 +76,32 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: null,
+            };
+        case UPDATE_USER_PENDING:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                isEditing: false,
+                user: action.payload,
+            };
+        case UPDATE_USER_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case TOGGLE_EDIT:
+            return {
+                ...state,
+                isEditing: !state.isEditing
             };
 
         default:

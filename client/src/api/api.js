@@ -50,6 +50,10 @@ export async function post(url, data) {
     return await request(url, createOptions('post', data));
 }
 
+export async function put(url, data) {
+    return await request(url, createOptions('put', data));
+}
+
 export async function register(user) {
     const result = await post('/api/v1/auth/register', user);
 
@@ -76,6 +80,11 @@ export async function login(user) {
     localStorage.setItem('user', JSON.stringify(data));
     localStorage.setItem('token', result.token);
 
+    return result;
+}
+
+export async function update(user) {
+    const result = await put('/api/v1/auth/update', user);
     return result;
 }
 
