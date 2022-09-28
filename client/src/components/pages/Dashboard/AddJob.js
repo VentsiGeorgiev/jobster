@@ -36,7 +36,7 @@ function AddJob() {
         }
 
         createJob(formData);
-        console.log(formData);
+        setFormData(initialState);
 
     };
 

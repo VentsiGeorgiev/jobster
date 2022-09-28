@@ -24,7 +24,8 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 isLoading: false,
-                job: action.payload
+                job: action.payload,
+                allJobs: [...state.allJobs, action.payload]
             };
         case CREATE_JOB_REJECTED:
             return {
