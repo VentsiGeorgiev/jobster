@@ -9,6 +9,9 @@ import {
     FETCH_USER_JOBS_PENDING,
     FETCH_USER_JOBS_SUCCESS,
     FETCH_USER_JOBS_REJECTED,
+    DELETE_JOB_PENDING,
+    DELETE_JOB_SUCCESS,
+    DELETE_JOB_REJECTED,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -72,6 +75,27 @@ const reducer = (state, action) => {
                 userJobs: action.payload
             };
         case FETCH_USER_JOBS_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case DELETE_JOB_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case DELETE_JOB_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                allJobs: state.allJobs.filter((x) => x._id !== action.payload.id),
+                userJobs: state.userJobs.filter((x) => x._id !== action.payload.id),
+            };
+        case DELETE_JOB_REJECTED:
             return {
                 ...state,
                 isLoading: false,

@@ -1,9 +1,16 @@
 import styles from './Job.module.css';
 import { BiBriefcase, BiCalendar, BiCurrentLocation } from 'react-icons/bi';
+import { useAppContext } from '../../../context/appContext';
+import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 
 function Job({ job }) {
 
+    const { user } = useAppContext();
+    const { deleteJob } = useJobsContext();
+    const isOwner = job.createdBy === user.id;
+
     return (
+
         <article className={styles['job-section']}>
             <header className={styles['header']}>
                 <h3 className={styles['header-job-position']}>
@@ -44,11 +51,28 @@ function Job({ job }) {
                 </div>
 
             </main>
+
             <footer className={styles.footer}>
-                <button className='btn btn-edit'>Edit</button>
-                <button className='btn btn-delete'>Delete</button>
+                {isOwner
+                    ?
+                    <>
+                        <button className='btn btn-edit'>Edit</button>
+                        <button
+                            onClick={() => deleteJob(job._id)}
+                            className='btn btn-delete'
+                        >
+                            Delete
+                        </button>
+                    </>
+                    :
+                    <>
+                        <button className='btn btn-primary'>Read More</button>
+                    </>
+                }
             </footer>
+
         </article>
+
     );
 }
 

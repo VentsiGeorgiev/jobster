@@ -3,7 +3,7 @@ import { useAppContext } from '../../../context/appContext';
 import styles from './Profile.module.css';
 import { FaUserEdit } from 'react-icons/fa';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { Job } from '../../shared';
+import { Alert, Job } from '../../shared';
 
 function Profile() {
     const { user, updateUser, isEditing, toggleEdit } = useAppContext();
@@ -21,7 +21,6 @@ function Profile() {
 
     return (
         <>
-
             <section className={styles['profile-container']}>
                 <h4>{user.name}</h4>
                 <div>

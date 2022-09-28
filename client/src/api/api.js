@@ -54,6 +54,10 @@ export async function put(url, data) {
     return await request(url, createOptions('put', data));
 }
 
+export async function del(url, data) {
+    return await request(url, createOptions('delete', data));
+}
+
 export async function register(user) {
     const result = await post('/api/v1/auth/register', user);
 
@@ -102,6 +106,11 @@ export async function getAllJobs() {
 
 export async function getUserJobs() {
     const result = await get('/api/v1/job/my-jobs');
+    return result;
+}
+
+export async function removeJob(id) {
+    const result = await del(`/api/v1/job/my-jobs/${id}`);
     return result;
 }
 
