@@ -45,4 +45,15 @@ const getAllJobs = async (req, res) => {
     }
 };
 
-export { createJob, getAllJobs };
+const getMyJobs = async (req, res) => {
+    try {
+
+        const myJobs = await Job.find({ createdBy: req.user._id });
+        res.status(200).json(myJobs);
+
+    } catch (error) {
+        res.status(400).json({ message: error });
+    }
+};
+
+export { createJob, getAllJobs, getMyJobs };
