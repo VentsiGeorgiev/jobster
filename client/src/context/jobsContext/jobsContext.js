@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { createJobOffer, getAllJobs, getUserJobs } from '../../api/api';
-import { useAppContext } from '../appContext';
 import { CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, TOGGLE_SIDEBAR } from './jobsActions';
 import reducer from './jobsReducer';
 
