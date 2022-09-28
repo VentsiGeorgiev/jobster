@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { createJobOffer, getAllJobs } from '../../api/api';
+import { createJobOffer, getAllJobs, getUserJobs } from '../../api/api';
 import { useAppContext } from '../appContext';
-import { CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, TOGGLE_SIDEBAR } from './jobsActions';
+import { CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, TOGGLE_SIDEBAR } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
     job: {},
     allJobs: [],
+    userJobs: [],
     showSidebar: true,
     isLoading: false,
     showAlert: false,
@@ -52,6 +53,24 @@ const JobsProvider = ({ children }) => {
         fetchJobs();
 
     }, []);
+
+    useEffect(() => {
+        dispatch({ type: FETCH_USER_JOBS_PENDING });
+        const fetchUserJobs = async () => {
+
+            try {
+                const response = await getUserJobs();
+                dispatch({ type: FETCH_USER_JOBS_SUCCESS, payload: response });
+            } catch (error) {
+                dispatch({ type: FETCH_USER_JOBS_REJECTED, payload: error.message });
+            }
+
+        };
+        fetchUserJobs();
+
+    }, []);
+
+
 
     return <JobsContext.Provider value={{
         ...state,

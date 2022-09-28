@@ -6,6 +6,9 @@ import {
     FETCH_ALL_JOBS_PENDING,
     FETCH_ALL_JOBS_SUCCESS,
     FETCH_ALL_JOBS_REJECTED,
+    FETCH_USER_JOBS_PENDING,
+    FETCH_USER_JOBS_SUCCESS,
+    FETCH_USER_JOBS_REJECTED,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -48,6 +51,26 @@ const reducer = (state, action) => {
                 allJobs: action.payload
             };
         case FETCH_ALL_JOBS_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case FETCH_USER_JOBS_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_USER_JOBS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                userJobs: action.payload
+            };
+        case FETCH_USER_JOBS_REJECTED:
             return {
                 ...state,
                 isLoading: false,

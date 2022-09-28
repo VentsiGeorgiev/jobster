@@ -98,3 +98,10 @@ export async function getAllJobs() {
     const result = await get('/api/v1/job/all-jobs');
     return result;
 }
+
+
+export async function getUserJobs() {
+    const result = await get('/api/v1/job/my-jobs');
+    return result;
+}
+
