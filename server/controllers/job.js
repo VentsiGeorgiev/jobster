@@ -1,4 +1,5 @@
 import Job from '../models/Job.js';
+import User from '../models/User.js';
 
 const createJob = async (req, res) => {
     try {
@@ -56,4 +57,34 @@ const getMyJobs = async (req, res) => {
     }
 };
 
-export { createJob, getAllJobs, getMyJobs };
+const deleteJob = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            res.status(401);
+            throw new Error('User not found');
+        }
+
+        const job = await Job.findById(req.params.id);
+        if (!job) {
+            res.status(401);
+            throw new Error('Job not found');
+        }
+
+        if (job.createdBy.toString() !== user._id.toString()) {
+            res.status(401);
+            throw new Error('Not Authorized');
+        }
+
+        await job.remove();
+        res.status(200).json({ success: true });
+
+    } catch (error) {
+        res.json({ message: error });
+    }
+
+
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob };
