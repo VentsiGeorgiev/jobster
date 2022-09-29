@@ -87,4 +87,63 @@ const deleteJob = async (req, res) => {
 
 };
 
-export { createJob, getAllJobs, getMyJobs, deleteJob };
+const updateJob = async (req, res) => {
+    const userId = req.user._id;
+    const jobId = req.params.id;
+    try {
+        // Check for user
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Check for job
+        const job = await Job.findById(jobId);
+        if (!job) {
+            throw new Error('Job not found');
+        }
+
+        // Check for job owner
+        const isOwner = user._id.toString() === job.createdBy.toString();
+        if (!isOwner) {
+            throw new Error('Not authorized');
+        }
+
+        // // Update
+        // const { company, position, status, jobType, jobLocation } = req.body;
+        // job.company = company;
+        // job.position = position;
+        // job.status = status;
+        // job.jobType = jobType;
+        // job.jobLocation = jobLocation;
+
+        // const updatedJob = await job.save();
+        // res.status(200).json(updatedJob);
+
+        // Update
+        const { company, position, status, jobType, jobLocation } = req.body;
+        const currentJob = {
+            company,
+            position,
+            status,
+            jobType,
+            jobLocation,
+        };
+        Job.findByIdAndUpdate(jobId, currentJob, { new: true }, (err, docs) => {
+            if (err) {
+                throw new Error(err);
+            } else {
+                res.json(docs);
+            }
+        });
+
+
+    } catch (error) {
+        res.json({ message: error });
+    }
+
+
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob };
