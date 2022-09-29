@@ -1,42 +1,31 @@
 import FormRow from '../../shared/FormInputRow/FormInputRow';
 import styles from './AddJob.module.css';
 import { IoIosArrowDropdownCircle } from 'react-icons/io';
-import { useState } from 'react';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { useAppContext } from '../../../context/appContext';
 import { Alert } from '../../shared';
 
 function AddJob() {
-    const { createJob } = useJobsContext();
+    const { createJob, handleJobChange, job } = useJobsContext();
     const { displayAlert, isError } = useAppContext();
-    const initialState = {
-        company: '',
-        position: '',
-        status: 'Interview',
-        jobType: 'Full-time',
-        jobLocation: '',
-    };
-    const [formData, setFormData] = useState(initialState);
-    const { company, position, status, jobType, jobLocation } = formData;
 
+    const { company, position, status, jobType, jobLocation } = job;
 
     const handleChange = (e) => {
-        setFormData(() => ({
-            ...formData,
-            [e.target.name]: e.target.value
-        }));
+        const name = [e.target.name];
+        const value = [e.target.value];
+        handleJobChange({ name, value });
     };
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        const isFieldEmpty = Object.values(formData).some(x => x.trim() === '');
+        const isFieldEmpty = Object.values(job).some(x => x.trim() === '');
         if (isFieldEmpty) {
             displayAlert('All Fields Are Required', 'danger');
         }
 
-        createJob(formData);
-        setFormData(initialState);
+        createJob(job);
 
     };
 

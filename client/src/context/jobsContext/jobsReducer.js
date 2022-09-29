@@ -12,6 +12,8 @@ import {
     DELETE_JOB_PENDING,
     DELETE_JOB_SUCCESS,
     DELETE_JOB_REJECTED,
+    SET_FORM_DATA,
+    CLEAR_FORM_DATA,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -103,6 +105,21 @@ const reducer = (state, action) => {
                 isError: true,
                 message: action.payload,
                 alertType: 'danger',
+            };
+        case SET_FORM_DATA:
+            const job = {
+                ...state.job,
+                [action.payload.name]: action.payload.value[0]
+            };
+            return {
+                ...state,
+                job,
+            };
+        case CLEAR_FORM_DATA:
+            console.log(action.payload);
+            return {
+                ...state,
+                job: action.payload
             };
         default:
             throw new Error(`No such action ${action.type}`);
