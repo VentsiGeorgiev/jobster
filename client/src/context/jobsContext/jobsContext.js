@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { createJobOffer, getAllJobs, getUserJobs, removeJob } from '../../api/api';
-import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, TOGGLE_SIDEBAR } from './jobsActions';
+import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob } from '../../api/api';
+import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, TOGGLE_SIDEBAR } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
@@ -95,6 +95,28 @@ const JobsProvider = ({ children }) => {
         }
     };
 
+    const getSingleJob = async (id) => {
+        dispatch({ type: FETCH_JOB_PENDING });
+        try {
+            const response = await getJob(id);
+            console.log(response);
+            const job = {
+                company: response.company,
+                position: response.position,
+                status: response.status,
+                jobType: response.jobType,
+                jobLocation: response.jobLocation,
+            };
+            dispatch({ type: FETCH_JOB_SUCCESS, payload: job });
+        } catch (error) {
+            dispatch({ type: FETCH_JOB_REJECTED, payload: error.message });
+        }
+    };
+
+    const editJob = async (id) => {
+        getSingleJob(id);
+    };
+
 
     return <JobsContext.Provider value={{
         ...state,
@@ -103,6 +125,7 @@ const JobsProvider = ({ children }) => {
         deleteJob,
         handleJobChange,
         resetJobForm,
+        editJob,
     }}
     >
         {children}

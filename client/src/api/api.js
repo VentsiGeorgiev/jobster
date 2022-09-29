@@ -114,3 +114,8 @@ export async function removeJob(id) {
     return result;
 }
 
+export async function getJob(id) {
+    const result = await get(`/api/v1/job/my-jobs/${id}`);
+    return result;
+}
+

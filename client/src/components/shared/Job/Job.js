@@ -6,7 +6,7 @@ import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 function Job({ job }) {
 
     const { user } = useAppContext();
-    const { deleteJob } = useJobsContext();
+    const { deleteJob, editJob } = useJobsContext();
     const isOwner = job.createdBy === user.id;
 
     return (
@@ -56,7 +56,11 @@ function Job({ job }) {
                 {isOwner
                     ?
                     <>
-                        <button className='btn btn-edit'>Edit</button>
+                        <button
+                            onClick={() => editJob(job._id)}
+                            className='btn btn-edit'
+                        >
+                            Edit</button>
                         <button
                             onClick={() => deleteJob(job._id)}
                             className='btn btn-delete'
