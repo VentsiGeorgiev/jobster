@@ -146,4 +146,15 @@ const updateJob = async (req, res) => {
 
 };
 
-export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob };
+const getJob = async (req, res) => {
+    const jobId = req.params.id;
+
+    const job = await Job.findById(jobId);
+    if (!job) {
+        throw new Error('Job not found');
+    }
+    res.send(job);
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob };
