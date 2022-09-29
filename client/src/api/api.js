@@ -116,6 +116,18 @@ export async function removeJob(id) {
 
 export async function getJob(id) {
     const result = await get(`/api/v1/job/my-jobs/${id}`);
-    return result;
+    return result;;
+}
+
+export async function updateJob(id, data) {
+    const result = await put(`/api/v1/job/my-jobs/${id}`, data);
+    const job = {
+        company: result.company,
+        position: result.position,
+        status: result.status,
+        jobType: result.jobType,
+        jobLocation: result.jobLocation,
+    };
+    return job;
 }
 

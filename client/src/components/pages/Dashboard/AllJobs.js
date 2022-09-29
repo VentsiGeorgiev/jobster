@@ -1,10 +1,15 @@
+import { useEffect } from 'react';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { Job } from '../../shared';
 import styles from './AllJobs.module.css';
 
 function AllJobs() {
 
-    const { allJobs } = useJobsContext();
+    const { allJobs, fetchJobs } = useJobsContext();
+
+    useEffect(() => {
+        fetchJobs();
+    }, []);
 
     return (
         <>

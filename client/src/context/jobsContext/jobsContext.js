@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob } from '../../api/api';
-import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, TOGGLE_SIDEBAR } from './jobsActions';
+import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob } from '../../api/api';
+import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
@@ -11,10 +11,11 @@ const initialState = {
         jobType: 'Full-time',
         jobLocation: '',
     },
+    editJobId: null,
     allJobs: [],
     userJobs: [],
     showSidebar: true,
-    isEdit: true,
+    isEditing: false,
     isLoading: false,
     showAlert: false,
     isError: false,
@@ -53,37 +54,30 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
-    useEffect(() => {
+    const fetchJobs = async () => {
         dispatch({ type: FETCH_ALL_JOBS_PENDING });
-        const fetchJobs = async () => {
 
-            try {
-                const response = await getAllJobs();
-                dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: response });
-            } catch (error) {
-                dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });
-            }
+        try {
+            const response = await getAllJobs();
+            dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });
+        }
 
-        };
-        fetchJobs();
+    };
 
-    }, []);
 
-    useEffect(() => {
+    const fetchUserJobs = async () => {
         dispatch({ type: FETCH_USER_JOBS_PENDING });
-        const fetchUserJobs = async () => {
 
-            try {
-                const response = await getUserJobs();
-                dispatch({ type: FETCH_USER_JOBS_SUCCESS, payload: response });
-            } catch (error) {
-                dispatch({ type: FETCH_USER_JOBS_REJECTED, payload: error.message });
-            }
+        try {
+            const response = await getUserJobs();
+            dispatch({ type: FETCH_USER_JOBS_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: FETCH_USER_JOBS_REJECTED, payload: error.message });
+        }
 
-        };
-        fetchUserJobs();
-
-    }, []);
+    };
 
     const deleteJob = async (id) => {
         dispatch({ type: DELETE_JOB_PENDING });
@@ -99,22 +93,26 @@ const JobsProvider = ({ children }) => {
         dispatch({ type: FETCH_JOB_PENDING });
         try {
             const response = await getJob(id);
-            console.log(response);
-            const job = {
-                company: response.company,
-                position: response.position,
-                status: response.status,
-                jobType: response.jobType,
-                jobLocation: response.jobLocation,
-            };
-            dispatch({ type: FETCH_JOB_SUCCESS, payload: job });
+            dispatch({ type: FETCH_JOB_SUCCESS, payload: response });
         } catch (error) {
             dispatch({ type: FETCH_JOB_REJECTED, payload: error.message });
         }
     };
 
-    const editJob = async (id) => {
-        getSingleJob(id);
+    const loadJob = async (id) => {
+        dispatch({ type: UPDATE_JOB_PENDING });
+        const jobId = id ?? initialState.editJobId;
+        getSingleJob(jobId);
+    };
+
+    const editJob = async (id, updJob) => {
+        try {
+            const response = await updateJob(id, updJob);
+            dispatch({ type: UPDATE_JOB_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: UPDATE_JOB_REJECTED, payload: error.message });
+        }
+        resetJobForm();
     };
 
 
@@ -125,7 +123,10 @@ const JobsProvider = ({ children }) => {
         deleteJob,
         handleJobChange,
         resetJobForm,
+        loadJob,
         editJob,
+        fetchJobs,
+        fetchUserJobs,
     }}
     >
         {children}

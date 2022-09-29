@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/appContext';
 import styles from './Profile.module.css';
 import { FaUserEdit } from 'react-icons/fa';
@@ -7,7 +7,11 @@ import { Alert, Job } from '../../shared';
 
 function Profile() {
     const { user, updateUser, isEditing, toggleEdit } = useAppContext();
-    const { userJobs } = useJobsContext();
+    const { userJobs, fetchUserJobs } = useJobsContext();
+
+    useEffect(() => {
+        fetchUserJobs();
+    }, [userJobs]);
 
     const [updName, setUpdName] = useState(user.name);
 

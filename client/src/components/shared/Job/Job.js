@@ -2,12 +2,18 @@ import styles from './Job.module.css';
 import { BiBriefcase, BiCalendar, BiCurrentLocation } from 'react-icons/bi';
 import { useAppContext } from '../../../context/appContext';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
+import { useNavigate } from 'react-router-dom';
 
 function Job({ job }) {
 
     const { user } = useAppContext();
-    const { deleteJob, editJob } = useJobsContext();
+    const { deleteJob, loadJob } = useJobsContext();
     const isOwner = job.createdBy === user.id;
+    const navigate = useNavigate();
+    const editHandler = (id) => {
+        navigate('/add-job');
+        loadJob(id);
+    };
 
     return (
 
@@ -57,7 +63,7 @@ function Job({ job }) {
                     ?
                     <>
                         <button
-                            onClick={() => editJob(job._id)}
+                            onClick={() => editHandler(job._id)}
                             className='btn btn-edit'
                         >
                             Edit</button>

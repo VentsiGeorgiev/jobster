@@ -6,10 +6,10 @@ import { useAppContext } from '../../../context/appContext';
 import { Alert } from '../../shared';
 
 function AddJob() {
-    const { createJob, handleJobChange, job } = useJobsContext();
+    const { createJob, handleJobChange, job, isEditing, editJob, editJobId } = useJobsContext();
     const { displayAlert, isError } = useAppContext();
 
-    const { company, position, status, jobType, jobLocation } = job;
+    const { company, position, status, jobType, jobLocation, } = job;
 
     const handleChange = (e) => {
         const name = [e.target.name];
@@ -24,14 +24,19 @@ function AddJob() {
         if (isFieldEmpty) {
             displayAlert('All Fields Are Required', 'danger');
         }
+        if (isEditing) {
+            editJob(editJobId, job);
+        } else {
+            createJob(job);
 
-        createJob(job);
+        }
+
 
     };
 
     return (
         <section className={styles['add-job-section']}>
-            <h2>Create Job Offer</h2>
+            <h2>{isEditing ? 'Update Job Offer' : 'Create Job Offer'}</h2>
 
             <form onSubmit={submitHandler}>
                 {isError && <Alert />}
@@ -95,7 +100,7 @@ function AddJob() {
                     handleChange={handleChange}
                 />
 
-                <button className='btn btn-primary'>Create</button>
+                <button className='btn btn-primary'>{isEditing ? 'Update' : 'Create'}</button>
 
             </form>
         </section>

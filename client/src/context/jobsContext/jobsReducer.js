@@ -17,6 +17,9 @@ import {
     FETCH_JOB_PENDING,
     FETCH_JOB_SUCCESS,
     FETCH_JOB_REJECTED,
+    UPDATE_JOB_PENDING,
+    UPDATE_JOB_REJECTED,
+    UPDATE_JOB_SUCCESS,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -130,15 +133,45 @@ const reducer = (state, action) => {
                 isLoading: true,
             };
         case FETCH_JOB_SUCCESS:
+            const currentJob = {
+                company: action.payload.company,
+                position: action.payload.position,
+                status: action.payload.status,
+                jobType: action.payload.jobType,
+                jobLocation: action.payload.jobLocation,
+            };
             return {
                 ...state,
                 isLoading: false,
-                job: action.payload
+                job: currentJob,
+                editJobId: action.payload._id,
             };
         case FETCH_JOB_REJECTED:
             return {
                 ...state,
                 isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case UPDATE_JOB_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+                isEditing: true,
+            };
+        case UPDATE_JOB_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                job: action.payload
+            };
+        case UPDATE_JOB_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                isEditing: false,
                 showAlert: true,
                 isError: true,
                 message: action.payload,
