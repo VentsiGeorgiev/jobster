@@ -36,10 +36,27 @@ const createJob = async (req, res) => {
 
 const getAllJobs = async (req, res) => {
     try {
+        const { status, jobType, sort } = req.query;
+        const queryObject = {};
 
-        const allJobs = await Job.find();
+        if (status && status !== 'all') {
+            queryObject.status = status;
+        }
+        if (jobType && jobType !== 'all') {
+            queryObject.jobType = jobType;
+        }
 
-        res.status(200).json(allJobs);
+        let result = Job.find(queryObject);
+
+        if (sort == 'latest') {
+            result = result.sort('-createdAt');
+        }
+        if (sort == 'oldest') {
+            result = result.sort('createdAt');
+        }
+
+        const jobs = await result;
+        res.status(200).json(jobs);
 
     } catch (error) {
         res.status(500).json({ message: error.message });
