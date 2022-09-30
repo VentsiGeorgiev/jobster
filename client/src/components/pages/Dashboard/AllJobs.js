@@ -1,15 +1,22 @@
 import { useEffect } from 'react';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { FormRow, Job } from '../../shared';
+import { Job } from '../../shared';
 import styles from './AllJobs.module.css';
 
 function AllJobs() {
 
-    const { allJobs, fetchJobs } = useJobsContext();
+    const { allJobs, fetchJobs, searchCriteria, handleSearch } = useJobsContext();
+    const { type, status, sort } = searchCriteria;
 
     useEffect(() => {
-        fetchJobs();
-    }, []);
+        fetchJobs({ type, status, sort });
+    }, [type, status, sort]);
+
+    const handleChange = (e) => {
+        const name = [e.target.name];
+        const value = [e.target.value];
+        handleSearch({ name, value });
+    };
 
     return (
         <>
@@ -18,7 +25,13 @@ function AllJobs() {
                 <form>
                     <div>
                         <label htmlFor='type'>Type</label>
-                        <select id='type'>
+                        <select
+                            name='type'
+                            id='type'
+                            value={type}
+                            onChange={handleChange}
+                        >
+                            <option value='all'>all</option>
                             <option value='Full-time'>Full-time</option>
                             <option value='Part-time'>Part-time</option>
                             <option value='Remote'>Remote</option>
@@ -27,7 +40,13 @@ function AllJobs() {
                     </div>
                     <div>
                         <label htmlFor='status'>Status</label>
-                        <select id='status'>
+                        <select
+                            name='status'
+                            id='status'
+                            value={status}
+                            onChange={handleChange}
+                        >
+                            <option value='all'>all</option>
                             <option value='Interview'>Interview</option>
                             <option value='Declined'>Declined</option>
                             <option value='Pending'>Pending</option>
@@ -35,7 +54,12 @@ function AllJobs() {
                     </div>
                     <div>
                         <label htmlFor='sort'>Sort</label>
-                        <select id='sort'>
+                        <select
+                            id='sort'
+                            name='sort'
+                            value={sort}
+                            onChange={handleChange}
+                        >
                             <option value='latest'>Latest</option>
                             <option value='oldest'>Oldest</option>
                         </select>
@@ -43,9 +67,12 @@ function AllJobs() {
                 </form>
             </section>
             <section className={styles['all-jobs-container']}>
-                {allJobs.map((job) => (
+
+                {allJobs.length > 0 ? allJobs.map((job) => (
                     <Job key={job._id} job={job} />
-                ))}
+                ))
+                    : <h3>No Jobs Matching Criteria</h3>
+                }
             </section>
         </>
 

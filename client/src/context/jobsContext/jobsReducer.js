@@ -20,6 +20,7 @@ import {
     UPDATE_JOB_PENDING,
     UPDATE_JOB_REJECTED,
     UPDATE_JOB_SUCCESS,
+    SET_SEARCH_FORM_DATA,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -176,6 +177,15 @@ const reducer = (state, action) => {
                 isError: true,
                 message: action.payload,
                 alertType: 'danger',
+            };
+        case SET_SEARCH_FORM_DATA:
+            const searchCriteria = {
+                ...state.searchCriteria,
+                [action.payload.name]: action.payload.value[0]
+            };
+            return {
+                ...state,
+                searchCriteria,
             };
         default:
             throw new Error(`No such action ${action.type}`);

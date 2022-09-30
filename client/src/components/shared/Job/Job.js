@@ -8,7 +8,7 @@ function Job({ job }) {
 
     const { user } = useAppContext();
     const { deleteJob, loadJob } = useJobsContext();
-    const isOwner = job.createdBy === user.id;
+    const isOwner = job.createdBy === user._id;
     const navigate = useNavigate();
     const editHandler = (id) => {
         navigate('/add-job');

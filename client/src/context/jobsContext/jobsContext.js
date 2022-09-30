@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob } from '../../api/api';
-import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
+import { CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, SET_SEARCH_FORM_DATA, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
@@ -10,6 +10,11 @@ const initialState = {
         status: 'Interview',
         jobType: 'Full-time',
         jobLocation: '',
+    },
+    searchCriteria: {
+        type: 'all',
+        status: 'all',
+        sort: 'latest'
     },
     editJobId: null,
     allJobs: [],
@@ -54,11 +59,11 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
-    const fetchJobs = async () => {
-        dispatch({ type: FETCH_ALL_JOBS_PENDING });
+    const fetchJobs = async ({ type, status, sort }) => {
 
+        dispatch({ type: FETCH_ALL_JOBS_PENDING });
         try {
-            const response = await getAllJobs();
+            const response = await getAllJobs({ type, status, sort });
             dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: response });
         } catch (error) {
             dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });
@@ -115,6 +120,10 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
+    const handleSearch = ({ name, value }) => {
+        dispatch({ type: SET_SEARCH_FORM_DATA, payload: { name, value } });
+    };
+
 
     return <JobsContext.Provider value={{
         ...state,
@@ -127,6 +136,7 @@ const JobsProvider = ({ children }) => {
         editJob,
         fetchJobs,
         fetchUserJobs,
+        handleSearch,
     }}
     >
         {children}
