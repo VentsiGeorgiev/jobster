@@ -62,7 +62,7 @@ export async function register(user) {
     const result = await post('/api/v1/auth/register', user);
 
     const data = {
-        id: result._id,
+        _id: result._id,
         name: result.name,
         email: result.email,
     };
@@ -76,7 +76,7 @@ export async function login(user) {
     const result = await post('/api/v1/auth/login', user);
 
     const data = {
-        id: result._id,
+        _id: result._id,
         name: result.name,
         email: result.email,
     };
