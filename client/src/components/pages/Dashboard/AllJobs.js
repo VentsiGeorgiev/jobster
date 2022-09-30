@@ -6,11 +6,19 @@ import styles from './AllJobs.module.css';
 function AllJobs() {
 
     const { allJobs, fetchJobs, searchCriteria, handleSearch } = useJobsContext();
-    const { type, status, sort } = searchCriteria;
+    const { type, status, sort, term } = searchCriteria;
 
     useEffect(() => {
-        fetchJobs({ type, status, sort });
-    }, [type, status, sort]);
+
+        const setTimeoutId = setTimeout(() => {
+            fetchJobs({ type, status, sort, term });
+        }, 500);
+
+        return () => {
+            clearTimeout(setTimeoutId);
+        };
+
+    }, [type, status, sort, term]);
 
     const handleChange = (e) => {
         const name = [e.target.name];
@@ -23,6 +31,17 @@ function AllJobs() {
             <section className={styles['all-jobs-search-container']}>
                 <h3>Search</h3>
                 <form>
+                    <div>
+                        <label className='label' htmlFor='search'>Search Position</label>
+                        <input
+                            id='search'
+                            name='term'
+                            type='text'
+                            value={term}
+                            onChange={handleChange}
+                            className='form-input'
+                        />
+                    </div>
                     <div>
                         <label htmlFor='type'>Type</label>
                         <select

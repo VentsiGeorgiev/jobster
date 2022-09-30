@@ -12,6 +12,7 @@ const initialState = {
         jobLocation: '',
     },
     searchCriteria: {
+        term: '',
         type: 'all',
         status: 'all',
         sort: 'latest'
@@ -59,11 +60,11 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
-    const fetchJobs = async ({ type, status, sort }) => {
+    const fetchJobs = async ({ type, status, sort, term }) => {
 
         dispatch({ type: FETCH_ALL_JOBS_PENDING });
         try {
-            const response = await getAllJobs({ type, status, sort });
+            const response = await getAllJobs({ type, status, sort, term });
             dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: response });
         } catch (error) {
             dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });

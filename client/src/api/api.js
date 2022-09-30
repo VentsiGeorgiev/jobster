@@ -98,8 +98,12 @@ export async function createJobOffer(job) {
     return result;
 }
 
-export async function getAllJobs({ type, sort, status }) {
-    const result = await get(`/api/v1/job/all-jobs?jobType=${type}&sort=${sort}&status=${status}`);
+export async function getAllJobs({ type, sort, status, term }) {
+    let url = `/api/v1/job/all-jobs?jobType=${type}&sort=${sort}&status=${status}`;
+    if (term) {
+        url = url + `&search=${term}`;
+    }
+    const result = await get(url);
     return result;
 }
 

@@ -11,7 +11,7 @@ function Profile() {
 
     useEffect(() => {
         fetchUserJobs();
-    }, [userJobs]);
+    }, []);
 
     const [updName, setUpdName] = useState(user.name);
 
