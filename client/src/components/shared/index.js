@@ -7,6 +7,7 @@ import SmallSidebar from './SmallSidebar/SmallSidebar';
 import LargeSidebar from './LargeSidebar/LargeSidebar';
 import FormRow from './FormInputRow/FormInputRow';
 import Job from './Job/Job';
+import PageButtons from './PageButtons/PageButtons';
 export {
     Logo,
     FormInputRow,
@@ -16,5 +17,6 @@ export {
     SmallSidebar,
     LargeSidebar,
     FormRow,
-    Job
+    Job,
+    PageButtons,
 };

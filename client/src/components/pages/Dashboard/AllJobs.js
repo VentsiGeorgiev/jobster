@@ -1,24 +1,24 @@
 import { useEffect } from 'react';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { Job } from '../../shared';
+import { Job, PageButtons } from '../../shared';
 import styles from './AllJobs.module.css';
 
 function AllJobs() {
 
-    const { allJobs, fetchJobs, searchCriteria, handleSearch } = useJobsContext();
+    const { allJobs, fetchJobs, searchCriteria, handleSearch, page } = useJobsContext();
     const { type, status, sort, term } = searchCriteria;
 
     useEffect(() => {
 
         const setTimeoutId = setTimeout(() => {
-            fetchJobs({ type, status, sort, term });
+            fetchJobs({ type, status, sort, term, page });
         }, 500);
 
         return () => {
             clearTimeout(setTimeoutId);
         };
 
-    }, [type, status, sort, term]);
+    }, [type, status, sort, term, page]);
 
     const handleChange = (e) => {
         const name = [e.target.name];
@@ -93,6 +93,7 @@ function AllJobs() {
                     : <h3>No Jobs Matching Criteria</h3>
                 }
             </section>
+            <PageButtons />
         </>
 
     );

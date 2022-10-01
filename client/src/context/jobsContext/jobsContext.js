@@ -63,12 +63,13 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
-    const fetchJobs = async ({ type, status, sort, term }) => {
+    const fetchJobs = async ({ type, status, sort, term, page }) => {
 
         dispatch({ type: FETCH_ALL_JOBS_PENDING });
         try {
-            const response = await getAllJobs({ type, status, sort, term });
+            const response = await getAllJobs({ type, status, sort, term, page });
             const { jobs, totalJobs, numOfPages } = response;
+            console.log(numOfPages);
             dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs, totalJobs, numOfPages } });
         } catch (error) {
             dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });
