@@ -2,27 +2,19 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 import { useNavigate } from 'react-router-dom';
+import { useFormContext } from '../../../context/formContext/formContext';
 
 function Register() {
     const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
-    const initialState = {
-        name: '',
-        email: '',
-        password: '',
-        repass: '',
-        isMember: false,
-    };
+    const { authForm, onChange, toggleMember } = useFormContext();
+    const { name, email, password, repass, isMember } = authForm;
 
-    const [values, setValue] = useState(initialState);
-    const { name, email, password, repass, isMember } = values;
     const navigate = useNavigate();
 
-    const toggleMember = () => {
-        setValue({ ...values, isMember: !values.isMember });
-    };
-
     const handleChange = (e) => {
-        setValue({ ...values, [e.target.name]: e.target.value });
+        const name = [e.target.name];
+        const value = [e.target.value];
+        onChange({ name, value });
     };
 
     useEffect(() => {
