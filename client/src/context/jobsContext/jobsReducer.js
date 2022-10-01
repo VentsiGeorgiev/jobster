@@ -21,6 +21,7 @@ import {
     UPDATE_JOB_REJECTED,
     UPDATE_JOB_SUCCESS,
     SET_SEARCH_FORM_DATA,
+    CHANGE_PAGE,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -188,6 +189,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 searchCriteria,
+            };
+        case CHANGE_PAGE:
+            return {
+                ...state,
+                page: action.payload,
             };
         default:
             throw new Error(`No such action ${action.type}`);

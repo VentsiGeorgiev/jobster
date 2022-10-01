@@ -99,7 +99,8 @@ export async function createJobOffer(job) {
 }
 
 export async function getAllJobs({ type, sort, status, term, page }) {
-    let url = `/api/v1/job/all-jobs?page=${page}jobType=${type}&sort=${sort}&status=${status}`;
+
+    let url = `/api/v1/job/all-jobs?page=${page}&jobType=${type}&sort=${sort}&status=${status}`;
     if (term) {
         url = url + `&search=${term}`;
     }
