@@ -17,6 +17,9 @@ const initialState = {
         status: 'all',
         sort: 'latest'
     },
+    page: 1,
+    totalJobs: 0,
+    numOfPages: 1,
     editJobId: null,
     allJobs: [],
     userJobs: [],
@@ -65,7 +68,8 @@ const JobsProvider = ({ children }) => {
         dispatch({ type: FETCH_ALL_JOBS_PENDING });
         try {
             const response = await getAllJobs({ type, status, sort, term });
-            dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: response });
+            const { jobs, totalJobs, numOfPages } = response;
+            dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs, totalJobs, numOfPages } });
         } catch (error) {
             dispatch({ type: FETCH_ALL_JOBS_REJECTED, payload: error.message });
         }

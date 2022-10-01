@@ -61,7 +61,9 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 isLoading: false,
-                allJobs: action.payload
+                page: action.payload.page,
+                totalJobs: action.payload.totalJobs,
+                allJobs: action.payload.jobs
             };
         case FETCH_ALL_JOBS_REJECTED:
             return {
