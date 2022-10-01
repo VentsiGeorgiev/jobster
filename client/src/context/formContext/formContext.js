@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import { INPUT_CHANGE } from './formActions';
+import { INPUT_CHANGE, TOGGLE_MEMBER } from './formActions';
 import reducer from './formReducer';
 
 const FormContext = createContext();
@@ -9,8 +9,8 @@ const initialState = {
         email: '',
         password: '',
         repass: '',
-        isMember: false,
-    }
+    },
+    isMember: false,
 
 };
 
@@ -21,7 +21,7 @@ const FormProvider = ({ children }) => {
         dispatch({ type: INPUT_CHANGE, payload: { name, value } });
     };
     const toggleMember = () => {
-
+        dispatch({ type: TOGGLE_MEMBER });
     };
 
 

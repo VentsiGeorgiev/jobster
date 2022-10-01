@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 import { useNavigate } from 'react-router-dom';
@@ -6,8 +6,8 @@ import { useFormContext } from '../../../context/formContext/formContext';
 
 function Register() {
     const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
-    const { authForm, onChange, toggleMember } = useFormContext();
-    const { name, email, password, repass, isMember } = authForm;
+    const { authForm, onChange, toggleMember, isMember } = useFormContext();
+    const { name, email, password, repass, } = authForm;
 
     const navigate = useNavigate();
 
