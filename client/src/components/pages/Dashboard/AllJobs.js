@@ -31,7 +31,7 @@ function AllJobs() {
             <section className={styles['all-jobs-search-container']}>
                 <h3>Search</h3>
                 <form>
-                    <div>
+                    <div className='form-row'>
                         <label className='label' htmlFor='search'>Search Position</label>
                         <input
                             id='search'
@@ -42,46 +42,48 @@ function AllJobs() {
                             className='form-input'
                         />
                     </div>
-                    <div>
-                        <label htmlFor='type'>Type</label>
-                        <select
-                            name='type'
-                            id='type'
-                            value={type}
-                            onChange={handleChange}
-                        >
-                            <option value='all'>all</option>
-                            <option value='Full-time'>Full-time</option>
-                            <option value='Part-time'>Part-time</option>
-                            <option value='Remote'>Remote</option>
-                            <option value='Internship'>Internship</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor='status'>Status</label>
-                        <select
-                            name='status'
-                            id='status'
-                            value={status}
-                            onChange={handleChange}
-                        >
-                            <option value='all'>all</option>
-                            <option value='Interview'>Interview</option>
-                            <option value='Declined'>Declined</option>
-                            <option value='Pending'>Pending</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor='sort'>Sort</label>
-                        <select
-                            id='sort'
-                            name='sort'
-                            value={sort}
-                            onChange={handleChange}
-                        >
-                            <option value='latest'>Latest</option>
-                            <option value='oldest'>Oldest</option>
-                        </select>
+                    <div className={styles['filter-jobs']}>
+                        <div className='form-row'>
+                            <label className='label' htmlFor='type'>Type</label>
+                            <select
+                                name='type'
+                                id='type'
+                                value={type}
+                                onChange={handleChange}
+                            >
+                                <option value='all'>all</option>
+                                <option value='Full-time'>Full-time</option>
+                                <option value='Part-time'>Part-time</option>
+                                <option value='Remote'>Remote</option>
+                                <option value='Internship'>Internship</option>
+                            </select>
+                        </div>
+                        <div className='form-row'>
+                            <label className='label' htmlFor='status'>Status</label>
+                            <select
+                                name='status'
+                                id='status'
+                                value={status}
+                                onChange={handleChange}
+                            >
+                                <option value='all'>all</option>
+                                <option value='Interview'>Interview</option>
+                                <option value='Declined'>Declined</option>
+                                <option value='Pending'>Pending</option>
+                            </select>
+                        </div>
+                        <div className='form-row'>
+                            <label className='label' htmlFor='sort'>Sort</label>
+                            <select
+                                id='sort'
+                                name='sort'
+                                value={sort}
+                                onChange={handleChange}
+                            >
+                                <option value='latest'>Latest</option>
+                                <option value='oldest'>Oldest</option>
+                            </select>
+                        </div>
                     </div>
                 </form>
             </section>

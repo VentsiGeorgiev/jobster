@@ -168,9 +168,17 @@ const reducer = (state, action) => {
         case UPDATE_JOB_SUCCESS:
             return {
                 ...state,
+                editJobId: null,
+                isEditing: false,
                 isLoading: false,
                 job: action.payload
             };
+        // case UPDATE_JOB_SUCCESS:
+        //     return {
+        //         ...state,
+        //         isLoading: false,
+        //         job: action.payload
+        //     };
         case UPDATE_JOB_REJECTED:
             return {
                 ...state,

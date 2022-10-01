@@ -4,12 +4,14 @@ import { IoIosArrowDropdownCircle } from 'react-icons/io';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { useAppContext } from '../../../context/appContext';
 import { Alert } from '../../shared';
+import { useNavigate } from 'react-router-dom';
 
 function AddJob() {
     const { createJob, handleJobChange, job, isEditing, editJob, editJobId } = useJobsContext();
     const { displayAlert, isError } = useAppContext();
 
     const { company, position, status, jobType, jobLocation, } = job;
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const name = [e.target.name];
@@ -30,7 +32,7 @@ function AddJob() {
             createJob(job);
 
         }
-
+        navigate('/profile');
 
     };
 
