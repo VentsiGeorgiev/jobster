@@ -58,8 +58,18 @@ const getAllJobs = async (req, res) => {
             result = result.sort('createdAt');
         }
 
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        result = result.skip(skip).limit(limit);
+
         const jobs = await result;
-        res.status(200).json(jobs);
+
+        const totalJobs = await Job.countDocuments(queryObject);
+        const numOfPages = Math.ceil(totalJobs / limit);
+
+        res.status(200).json({ jobs, totalJobs, numOfPages });
 
     } catch (error) {
         res.status(500).json({ message: error.message });
