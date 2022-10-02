@@ -7,7 +7,7 @@ import { onInputChange, validateInput } from '../../../utils/formUtils';
 
 function Register() {
     const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
-    const { onChange, toggleMember, isMember, name, email, password, repass, state, onInputChange } = useFormContext();
+    const { onChange, toggleMember, isMember, name, email, password, repass, state, onInputChange, onFocusOut } = useFormContext();
 
     const navigate = useNavigate();
 
@@ -55,7 +55,16 @@ function Register() {
 
         onInputChange(name, value, hasError, error, state);
 
+    };
 
+    const handleBlur = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        console.log('handle blur mf');
+        console.log(name);
+        console.log(value);
+        const { hasError, error } = validateInput(name, value);
+        onFocusOut(name, value, hasError, error, state);
     };
 
     return (
@@ -67,14 +76,20 @@ function Register() {
                     <Alert />
                 </div>
                 {isMember &&
-                    <FormInputRow
-                        id='name'
-                        type='text'
-                        labelText='Name'
-                        name='name'
-                        value={name.value}
-                        handleChange={handleChange}
-                    />
+                    <>
+                        {<FormInputRow
+                            id='name'
+                            type='text'
+                            labelText='Name'
+                            name='name'
+                            value={name.value}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                        />}
+                        {name.touched && name.hasError && (
+                            <p className='error'>{name.error}</p>
+                        )}
+                    </>
                 }
                 <FormInputRow
                     id='email'

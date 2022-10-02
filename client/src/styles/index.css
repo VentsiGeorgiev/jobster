@@ -247,6 +247,10 @@ li {
     padding: 4px 0;
 }
 
+.error {
+    color: red;
+}
+
 @media screen and (min-width: 860px) {
     .form {
         width: 60%;

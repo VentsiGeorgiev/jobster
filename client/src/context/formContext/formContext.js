@@ -56,6 +56,27 @@ const FormProvider = ({ children }) => {
         });
     };
 
+    const onFocusOut = (name, value, hasError, error, state) => {
+
+        let isFormValid = true;
+        for (const key in state) {
+            const item = state[key];
+            if (key === name && hasError) {
+                isFormValid = false;
+                break;
+            } else if (key !== name && item.hasError) {
+                isFormValid = false;
+                break;
+            }
+        }
+
+        dispatch({
+            type: UPDATE_FORM,
+            data: { name, value, hasError, error, touched: true, isFormValid },
+        });
+    };
+
+
 
     return <FormContext.Provider
         value={{
@@ -65,6 +86,7 @@ const FormProvider = ({ children }) => {
             onChange,
             toggleMember,
             onInputChange,
+            onFocusOut,
         }}
     >
         {children}

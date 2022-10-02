@@ -1,4 +1,4 @@
-function FormRow({ id, labelText, type, name, value, handleChange }) {
+function FormRow({ id, labelText, type, name, value, handleChange, handleBlur }) {
 
     return (
         <div className='form-row'>
@@ -9,6 +9,7 @@ function FormRow({ id, labelText, type, name, value, handleChange }) {
                 type={type}
                 value={value}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className='form-input'
             />
         </div>
