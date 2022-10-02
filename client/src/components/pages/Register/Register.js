@@ -3,19 +3,13 @@ import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../../../context/formContext/formContext';
+import { onInputChange, validateInput } from '../../../utils/formUtils';
 
 function Register() {
     const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
-    const { authForm, onChange, toggleMember, isMember } = useFormContext();
-    const { name, email, password, repass, } = authForm;
+    const { onChange, toggleMember, isMember, name, email, password, repass, state, onInputChange } = useFormContext();
 
     const navigate = useNavigate();
-
-    const handleChange = (e) => {
-        const name = [e.target.name];
-        const value = [e.target.value];
-        onChange({ name, value });
-    };
 
     useEffect(() => {
         if (user) {
@@ -27,27 +21,40 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!email || !password || (!name && isMember)) {
-            displayAlert('All Fields Are Required', 'danger');
-        }
-        if (isMember && password !== repass) {
-            displayAlert('Passwords don\'t match', 'danger');
-        }
+        console.table({ 'name state': state.name });
 
-        if (!isMember) {
-            const user = {
-                email,
-                password
-            };
-            loginUser(user);
-        } else {
-            const user = {
-                name,
-                email,
-                password
-            };
-            registerUser(user);
-        }
+        // if (!email || !password || (!name && isMember)) {
+        //     displayAlert('All Fields Are Required', 'danger');
+        // }
+        // if (isMember && password !== repass) {
+        //     displayAlert('Passwords don\'t match', 'danger');
+        // }
+
+        // if (!isMember) {
+        //     const user = {
+        //         email,
+        //         password
+        //     };
+        //     loginUser(user);
+        // } else {
+        //     const user = {
+        //         name,
+        //         email,
+        //         password
+        //     };
+        //     registerUser(user);
+        // }
+
+    };
+
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        const { hasError, error } = validateInput(name, value);
+
+        onInputChange(name, value, hasError, error, state);
+
 
     };
 
@@ -65,7 +72,7 @@ function Register() {
                         type='text'
                         labelText='Name'
                         name='name'
-                        value={name}
+                        value={name.value}
                         handleChange={handleChange}
                     />
                 }
@@ -74,7 +81,7 @@ function Register() {
                     type='email'
                     labelText='Email'
                     name='email'
-                    value={email}
+                    value={email.value}
                     handleChange={handleChange}
                 />
 
@@ -83,7 +90,7 @@ function Register() {
                     type='password'
                     labelText='Password'
                     name='password'
-                    value={password}
+                    value={password.value}
                     handleChange={handleChange}
                 />
                 {isMember &&
@@ -92,7 +99,7 @@ function Register() {
                         type='password'
                         labelText='Repeat password'
                         name='repass'
-                        value={repass}
+                        value={repass.value}
                         handleChange={handleChange}
                     />
                 }

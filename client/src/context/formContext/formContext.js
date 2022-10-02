@@ -1,17 +1,16 @@
 import { createContext, useContext, useReducer } from 'react';
-import { INPUT_CHANGE, TOGGLE_MEMBER } from './formActions';
+import { validateInput } from '../../utils/formUtils';
+import { INPUT_CHANGE, TOGGLE_MEMBER, UPDATE_FORM } from './formActions';
 import reducer from './formReducer';
 
 const FormContext = createContext();
 const initialState = {
-    authForm: {
-        name: '',
-        email: '',
-        password: '',
-        repass: '',
-    },
+    name: { value: '', touched: false, hasError: true, error: '' },
+    email: { value: '', touched: false, hasError: true, error: '' },
+    password: { value: '', touched: false, hasError: true, error: '' },
+    repass: { value: '', touched: false, hasError: true, error: '' },
+    isFormValid: false,
     isMember: false,
-
 };
 
 const FormProvider = ({ children }) => {
@@ -24,12 +23,48 @@ const FormProvider = ({ children }) => {
         dispatch({ type: TOGGLE_MEMBER });
     };
 
+    const onInputChange = (name, value, hasError, error, state) => {
+
+        let isFormValid = true;
+
+        for (const key in state) {
+            const item = state[key];
+            // Check if the current field has error
+            if (key === name && hasError) {
+                isFormValid = false;
+                break;
+            }
+            // else if (key !== name && item.hasError) {
+            //     // Check if any other field has error
+            //     isFormValid = false;
+            //     break;
+            // }
+        }
+
+
+
+        dispatch({
+            type: UPDATE_FORM,
+            data: {
+                name,
+                value,
+                hasError,
+                error,
+                touched: false,
+                isFormValid,
+            },
+        });
+    };
+
 
     return <FormContext.Provider
         value={{
+            state,
+            dispatch,
             ...state,
             onChange,
             toggleMember,
+            onInputChange,
         }}
     >
         {children}
