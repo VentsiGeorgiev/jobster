@@ -76,7 +76,7 @@ function Register() {
                     <Alert />
                 </div>
                 {isMember &&
-                    <>
+                    <div className='input-wrapper'>
                         {<FormInputRow
                             id='name'
                             type='text'
@@ -87,18 +87,24 @@ function Register() {
                             handleBlur={handleBlur}
                         />}
                         {name.touched && name.hasError && (
-                            <p className='error'>{name.error}</p>
+                            <span className='error'>{name.error}</span>
                         )}
-                    </>
+                    </div>
                 }
-                <FormInputRow
-                    id='email'
-                    type='email'
-                    labelText='Email'
-                    name='email'
-                    value={email.value}
-                    handleChange={handleChange}
-                />
+                <div className='input-wrapper'>
+                    <FormInputRow
+                        id='email'
+                        type='email'
+                        labelText='Email'
+                        name='email'
+                        value={email.value}
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                    />
+                    {email.touched && email.hasError && (
+                        <span className='error'>{email.error}</span>
+                    )}
+                </div>
 
                 <FormInputRow
                     id='password'

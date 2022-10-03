@@ -235,7 +235,7 @@ li {
 }
 .form-row {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.4rem;
 }
 
 .align-center {
@@ -246,9 +246,14 @@ li {
     font-size: 1rem;
     padding: 4px 0;
 }
+.input-wrapper {
+    position: relative;
+}
 
 .error {
-    color: red;
+    position: absolute;
+    color: rgb(255, 0, 0);
+    bottom: -1.5rem;
 }
 
 @media screen and (min-width: 860px) {
