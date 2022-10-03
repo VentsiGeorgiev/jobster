@@ -3,11 +3,17 @@ import styles from './Navbar.module.css';
 import { AiOutlineMenuFold, AiOutlineLogout } from 'react-icons/ai';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import Logo from '../Logo/Logo';
+import { useFormContext } from '../../../context/formContext/formContext';
 
 function Navbar() {
     const { user, logout } = useAppContext();
     const { toggleSidebar } = useJobsContext();
+    const { cleanFormState } = useFormContext();
 
+    const handleLogout = () => {
+        logout();
+        cleanFormState();
+    };
 
     return (
         <section className={styles['nav-center']}>
@@ -28,7 +34,7 @@ function Navbar() {
             </div>
             <div>
                 <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className={styles['nav-btn']}>
                     Logout
                     <AiOutlineLogout className={styles['nav-icon']} />

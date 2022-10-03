@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
 import { validateInput } from '../../utils/formUtils';
-import { INPUT_CHANGE, TOGGLE_MEMBER, UPDATE_FORM } from './formActions';
+import { CLEAN_FORM, INPUT_CHANGE, TOGGLE_MEMBER, UPDATE_FORM } from './formActions';
 import reducer from './formReducer';
 
 const FormContext = createContext();
@@ -74,6 +74,10 @@ const FormProvider = ({ children }) => {
         });
     };
 
+    const cleanFormState = () => {
+        dispatch({ type: CLEAN_FORM, payload: initialState });
+    };
+
 
     return <FormContext.Provider
         value={{
@@ -84,6 +88,7 @@ const FormProvider = ({ children }) => {
             toggleMember,
             onInputChange,
             onFocusOut,
+            cleanFormState,
         }}
     >
         {children}

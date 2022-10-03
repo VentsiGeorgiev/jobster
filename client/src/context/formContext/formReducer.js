@@ -1,4 +1,4 @@
-import { INPUT_CHANGE, TOGGLE_MEMBER, UPDATE_FORM } from './formActions';
+import { CLEAN_FORM, INPUT_CHANGE, TOGGLE_MEMBER, UPDATE_FORM } from './formActions';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -22,6 +22,11 @@ const reducer = (state, action) => {
                 ...state,
                 [name]: { ...state[name], value, hasError, error, touched },
                 isFormValid,
+            };
+        case CLEAN_FORM:
+            const initialState = action.payload;
+            return {
+                ...initialState
             };
         default:
             throw new Error(`No such action ${action.type}`);

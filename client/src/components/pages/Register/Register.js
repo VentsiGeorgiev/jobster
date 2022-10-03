@@ -26,22 +26,20 @@ function Register() {
         } else {
             if (!isMember) {
                 const user = {
-                    email,
-                    password
+                    email: email.value,
+                    password: password.value
                 };
                 loginUser(user);
             } else {
                 const user = {
-                    name,
-                    email,
-                    password
+                    name: name.value,
+                    email: email.value,
+                    password: password.value,
+                    repass: repass.value,
                 };
                 registerUser(user);
             }
         }
-
-
-
 
     };
 

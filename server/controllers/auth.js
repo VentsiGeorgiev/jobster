@@ -4,14 +4,15 @@ const register = async (req, res) => {
     try {
         const { name, email, password, repass } = req.body;
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !repass) {
             res.status(400);
             throw new Error('All fields are required');
         }
+
         if (password.trim().length < 6) {
             throw new Error('Password must be at least 6 characters long');
         }
-        if (password != repass) {
+        if (password.trim() !== repass.trim()) {
             throw new Error('Passwords don\'t match');
         }
 
@@ -52,6 +53,9 @@ const login = async (req, res) => {
         if (!email || !password) {
             res.status(400);
             throw new Error('All fields are required');
+        }
+        if (password.trim().length < 6) {
+            throw new Error('Password must be at least 6 characters long');
         }
 
         const user = await User.findOne({ email });
