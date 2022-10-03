@@ -2,11 +2,17 @@ import User from '../models/User.js';
 
 const register = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, repass } = req.body;
 
         if (!name || !email || !password) {
             res.status(400);
             throw new Error('All fields are required');
+        }
+        if (password.trim().length < 6) {
+            throw new Error('Password must be at least 6 characters long');
+        }
+        if (password != repass) {
+            throw new Error('Passwords don\'t match');
         }
 
         const userExists = await User.findOne({ email });
