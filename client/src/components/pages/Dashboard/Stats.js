@@ -37,6 +37,9 @@ function Stats() {
                     </div>
                 </div>
             </section>
+            <section className={styles['all-stats-container']}>
+                <h3>Your Jobs: {jobStats.myJobs}</h3>
+            </section>
         </>
     );
 }

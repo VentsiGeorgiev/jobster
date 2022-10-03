@@ -4,24 +4,27 @@ import User from '../models/User.js';
 
 const createJob = async (req, res) => {
     try {
+        console.log(req.body);
 
         const {
             company,
             position,
-            status,
-            jobType,
+            type,
+            seniority,
+            skills,
             jobLocation
         } = req.body;
 
-        if (!company || !position || !status || !jobType || !jobLocation) {
+        if (!company || !position || !type || !seniority || !skills || !jobLocation) {
             throw new Error('All fields are required');
         }
 
         const jobOffer = await Job.create({
             company,
             position,
-            status,
-            jobType,
+            type,
+            seniority,
+            skills,
             jobLocation,
             createdBy: req.user._id,
         });
@@ -196,30 +199,36 @@ const getJob = async (req, res) => {
 };
 
 const getStats = async (req, res) => {
+    try {
+        const statsJS = await Job.aggregate([
+            { $match: { skills: 'javascript' } },
+        ]);
+        const statsJava = await Job.aggregate([
+            { $match: { skills: 'java' } },
+        ]);
+        const statsCSharp = await Job.aggregate([
+            { $match: { skills: 'c-sharp' } },
+        ]);
+        const statsPython = await Job.aggregate([
+            { $match: { skills: 'python' } },
+        ]);
+        const totalJobs = await Job.find({});
 
-    let statsJS = await Job.aggregate([
-        { $match: { skills: 'javascript' } },
-    ]);
-    let statsJava = await Job.aggregate([
-        { $match: { skills: 'java' } },
-    ]);
-    let statsCSharp = await Job.aggregate([
-        { $match: { skills: 'c-sharp' } },
-    ]);
-    let statsPython = await Job.aggregate([
-        { $match: { skills: 'python' } },
-    ]);
-    let totalJobs = await Job.find({});
+        const myJobs = await Job.find({ createdBy: req.user._id });
 
-    let stats = {
-        totalJobs: totalJobs.length,
-        jsTotalJobs: statsJS.length,
-        javaTotalJobs: statsJava.length,
-        cSharpTotalJobs: statsCSharp.length,
-        pythonTotalJobs: statsPython.length,
-    };
+        const stats = {
+            myJobs: myJobs.length,
+            totalJobs: totalJobs.length,
+            jsTotalJobs: statsJS.length,
+            javaTotalJobs: statsJava.length,
+            cSharpTotalJobs: statsCSharp.length,
+            pythonTotalJobs: statsPython.length,
+        };
 
-    res.status(200).json(stats);
+        res.status(200).json(stats);
+    } catch (error) {
+        res.status(400).json({ message: error });
+    }
 
 };
 
