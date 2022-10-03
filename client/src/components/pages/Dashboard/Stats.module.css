@@ -14,8 +14,7 @@
 
 .stats-card {
     padding: 1rem;
-    border: 1px solid var(--primary-800);
-    box-shadow: var(--shadow-2);
+    box-shadow: var(--shadow-1);
     width: calc(25% - 1rem);
     border-radius: 4px;
 }

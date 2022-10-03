@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
-import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob } from '../../api/api';
-import { CHANGE_PAGE, CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, SET_SEARCH_FORM_DATA, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
+import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob, getStats } from '../../api/api';
+import { CHANGE_PAGE, CLEAR_FORM_DATA, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_STATS_JOBS_PENDING, FETCH_STATS_JOBS_REJECTED, FETCH_STATS_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, SET_FORM_DATA, SET_SEARCH_FORM_DATA, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
@@ -19,6 +19,7 @@ const initialState = {
         seniority: 'all',
         skills: 'all',
     },
+    jobStats: {},
     page: 1,
     totalJobs: 0,
     numOfPages: 1,
@@ -90,6 +91,17 @@ const JobsProvider = ({ children }) => {
         }
 
     };
+    const fetchStatsJobs = async () => {
+        dispatch({ type: FETCH_STATS_JOBS_PENDING });
+
+        try {
+            const response = await getStats();
+            dispatch({ type: FETCH_STATS_JOBS_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: FETCH_STATS_JOBS_REJECTED, payload: error.message });
+        }
+
+    };
 
     const deleteJob = async (id) => {
         dispatch({ type: DELETE_JOB_PENDING });
@@ -148,7 +160,8 @@ const JobsProvider = ({ children }) => {
         fetchJobs,
         fetchUserJobs,
         handleSearch,
-        changePage
+        changePage,
+        fetchStatsJobs,
     }}
     >
         {children}

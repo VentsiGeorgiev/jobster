@@ -209,8 +209,10 @@ const getStats = async (req, res) => {
     let statsPython = await Job.aggregate([
         { $match: { skills: 'python' } },
     ]);
+    let totalJobs = await Job.find({});
 
     let stats = {
+        totalJobs: totalJobs.length,
         jsTotalJobs: statsJS.length,
         javaTotalJobs: statsJava.length,
         cSharpTotalJobs: statsCSharp.length,

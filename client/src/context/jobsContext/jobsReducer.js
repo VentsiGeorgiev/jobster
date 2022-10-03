@@ -22,6 +22,9 @@ import {
     UPDATE_JOB_SUCCESS,
     SET_SEARCH_FORM_DATA,
     CHANGE_PAGE,
+    FETCH_STATS_JOBS_PENDING,
+    FETCH_STATS_JOBS_SUCCESS,
+    FETCH_STATS_JOBS_REJECTED,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -202,6 +205,26 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 page: action.payload,
+            };
+        case FETCH_STATS_JOBS_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_STATS_JOBS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                jobStats: action.payload
+            };
+        case FETCH_STATS_JOBS_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
             };
         default:
             throw new Error(`No such action ${action.type}`);

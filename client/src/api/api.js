@@ -116,6 +116,11 @@ export async function getUserJobs() {
     return result;
 }
 
+export async function getStats() {
+    const result = await get('/api/v1/job/stats');
+    return result;
+}
+
 export async function removeJob(id) {
     const result = await del(`/api/v1/job/my-jobs/${id}`);
     return result;
