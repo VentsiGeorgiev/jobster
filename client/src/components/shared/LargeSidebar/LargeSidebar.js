@@ -16,16 +16,49 @@ function LargeSidebar() {
                         <nav>
                             <menu className={styles['nav-menu']}>
                                 <li>
-                                    <NavLink to='/'><ImStatsBars /> Stats</NavLink>
+                                    <NavLink
+                                        to=''
+                                        end
+                                        className={({ isActive }) =>
+                                            isActive ? styles.activeStyle : ''
+                                        }
+                                    >
+                                        <ImStatsBars />
+                                        Stats
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='all-jobs'><AiOutlineFileSearch /> All Jobs</NavLink>
+                                    <NavLink
+                                        to='all-jobs'
+                                        className={({ isActive }) =>
+                                            isActive ? styles.activeStyle : ''
+                                        }
+                                    >
+                                        <AiOutlineFileSearch />
+                                        All Jobs
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='add-job'><AiOutlineFileAdd /> Add Job</NavLink>
+                                    <NavLink
+                                        to='add-job'
+                                        className={({ isActive }) =>
+                                            isActive ? styles.activeStyle : ''
+                                        }
+                                    >
+                                        <AiOutlineFileAdd />
+                                        Add Job
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='profile'><AiOutlineUser /> Profile</NavLink>
+                                    <NavLink
+                                        className={({ isActive }) =>
+                                            isActive ? styles.activeStyle : ''
+                                        }
+                                        to='profile'
+                                    >
+                                        <AiOutlineUser />
+                                        Profile
+                                    </NavLink>
                                 </li>
                             </menu>
                         </nav>

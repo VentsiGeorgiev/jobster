@@ -48,8 +48,13 @@
     margin-bottom: 0.4rem;
 }
 
-.nav-menu li a {
+li a {
+    color: var(--grey-300);
+    font-size: 1.3rem;
+}
+.activeStyle {
     color: var(--primary-800);
+    padding-left: 8px;
 }
 
 @media screen and (min-width: 860px) {

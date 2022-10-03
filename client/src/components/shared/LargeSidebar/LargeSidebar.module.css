@@ -14,17 +14,23 @@
 
 .nav-menu li {
     font-size: 1.2rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
 }
 
 .nav-menu li:hover {
-    background-color: var(--primary-100);
+    box-shadow: var(--shadow-2);
     padding-left: 0.5rem;
     transition: all 0.2s linear;
 }
 
-.nav-menu li a {
+li a {
+    color: var(--grey-300);
+    font-size: 1.3rem;
+}
+
+.activeStyle {
     color: var(--primary-800);
+    padding-left: 8px;
 }
 
 @media screen and (min-width: 860px) {

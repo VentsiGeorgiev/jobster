@@ -26,6 +26,10 @@ function SmallSidebar() {
                             <NavLink
                                 onClick={toggleSidebar}
                                 to='/'
+                                end
+                                className={({ isActive }) =>
+                                    isActive ? styles.activeStyle : ''
+                                }
                             >
                                 <ImStatsBars />
                                 Stats
@@ -35,6 +39,9 @@ function SmallSidebar() {
                             <NavLink
                                 onClick={toggleSidebar}
                                 to='all-jobs'
+                                className={({ isActive }) =>
+                                    isActive ? styles.activeStyle : ''
+                                }
                             >
                                 <AiOutlineFileSearch />
                                 All Jobs
@@ -44,6 +51,9 @@ function SmallSidebar() {
                             <NavLink
                                 onClick={toggleSidebar}
                                 to='add-job'
+                                className={({ isActive }) =>
+                                    isActive ? styles.activeStyle : ''
+                                }
                             >
                                 <AiOutlineFileAdd />
                                 Add Job
@@ -53,6 +63,9 @@ function SmallSidebar() {
                             <NavLink
                                 onClick={toggleSidebar}
                                 to='profile'
+                                className={({ isActive }) =>
+                                    isActive ? styles.activeStyle : ''
+                                }
                             >
                                 <AiOutlineUser />
                                 Profile
