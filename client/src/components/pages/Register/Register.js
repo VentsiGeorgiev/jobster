@@ -6,8 +6,8 @@ import { useFormContext } from '../../../context/formContext/formContext';
 import { onInputChange, validateInput } from '../../../utils/formUtils';
 
 function Register() {
-    const { displayAlert, registerUser, loginUser, isLoading, user } = useAppContext();
-    const { onChange, toggleMember, isMember, name, email, password, repass, state, onInputChange, onFocusOut } = useFormContext();
+    const { registerUser, loginUser, isLoading, user, displayAlert } = useAppContext();
+    const { onChange, toggleMember, isMember, name, email, password, repass, state, onInputChange, onFocusOut, isFormValid } = useFormContext();
 
     const navigate = useNavigate();
 
@@ -21,38 +21,34 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.table({ 'name state': state.name });
+        if (!isFormValid) {
+            displayAlert('Please fill all fields correctly', 'danger');
+        } else {
+            if (!isMember) {
+                const user = {
+                    email,
+                    password
+                };
+                loginUser(user);
+            } else {
+                const user = {
+                    name,
+                    email,
+                    password
+                };
+                registerUser(user);
+            }
+        }
 
-        // if (!email || !password || (!name && isMember)) {
-        //     displayAlert('All Fields Are Required', 'danger');
-        // }
-        // if (isMember && password !== repass) {
-        //     displayAlert('Passwords don\'t match', 'danger');
-        // }
 
-        // if (!isMember) {
-        //     const user = {
-        //         email,
-        //         password
-        //     };
-        //     loginUser(user);
-        // } else {
-        //     const user = {
-        //         name,
-        //         email,
-        //         password
-        //     };
-        //     registerUser(user);
-        // }
+
 
     };
 
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-
-        const { hasError, error } = validateInput(name, value);
-
+        const { hasError, error } = validateInput(name, value, password);
         onInputChange(name, value, hasError, error, state);
 
     };
@@ -60,10 +56,7 @@ function Register() {
     const handleBlur = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        console.log('handle blur mf');
-        console.log(name);
-        console.log(value);
-        const { hasError, error } = validateInput(name, value);
+        const { hasError, error } = validateInput(name, value, password);
         onFocusOut(name, value, hasError, error, state);
     };
 
@@ -75,6 +68,7 @@ function Register() {
                     <h3>{isMember ? 'Register' : 'Login'}</h3>
                     <Alert />
                 </div>
+                {isFormValid && <Alert message='Invalid form' alertType='danger' />}
                 {isMember &&
                     <div className='input-wrapper'>
                         {<FormInputRow
@@ -106,23 +100,35 @@ function Register() {
                     )}
                 </div>
 
-                <FormInputRow
-                    id='password'
-                    type='password'
-                    labelText='Password'
-                    name='password'
-                    value={password.value}
-                    handleChange={handleChange}
-                />
-                {isMember &&
+                <div className='input-wrapper'>
                     <FormInputRow
-                        id='repass'
+                        id='password'
                         type='password'
-                        labelText='Repeat password'
-                        name='repass'
-                        value={repass.value}
+                        labelText='Password'
+                        name='password'
+                        value={password.value}
                         handleChange={handleChange}
+                        handleBlur={handleBlur}
                     />
+                    {password.touched && password.hasError && (
+                        <span className='error'>{password.error}</span>
+                    )}
+                </div>
+                {isMember &&
+                    <div className='input-wrapper'>
+                        <FormInputRow
+                            id='repass'
+                            type='password'
+                            labelText='Repeat password'
+                            name='repass'
+                            value={repass.value}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                        />
+                        {repass.touched && repass.hasError && (
+                            <span className='error'>{repass.error}</span>
+                        )}
+                    </div>
                 }
 
                 <div className='form-row align-center'>

@@ -1,4 +1,4 @@
-export const validateInput = (name, value) => {
+export const validateInput = (name, value, password) => {
     let hasError = false;
     let error = '';
     const NAME_INPUT_REGEX = /^[a-zA-Z ]+$/;
@@ -27,6 +27,32 @@ export const validateInput = (name, value) => {
             } else if (!EMAIL_INPUT_REGEX.test(value)) {
                 hasError = true;
                 error = 'Invalid email';
+            } else {
+                hasError = false;
+                error = '';
+            }
+            break;
+        case 'password':
+            if (value.trim() === '') {
+                hasError = true;
+                error = 'Please enter your password';
+            } else if (value.trim().length < 6) {
+                hasError = true;
+                error = 'Password must have at least 6 characters';
+            } else {
+                hasError = false;
+                error = '';
+            }
+            break;
+        case 'repass':
+            console.log('password');
+            console.log(password);
+            if (value.trim() === '') {
+                hasError = true;
+                error = 'Please repeat your password';
+            } else if (value.trim() !== password.value.trim()) {
+                hasError = true;
+                error = 'Password don\'t match';
             } else {
                 hasError = false;
                 error = '';

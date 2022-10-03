@@ -34,14 +34,12 @@ const FormProvider = ({ children }) => {
                 isFormValid = false;
                 break;
             }
-            // else if (key !== name && item.hasError) {
-            //     // Check if any other field has error
-            //     isFormValid = false;
-            //     break;
-            // }
+            else if (key !== name && item.hasError) {
+                // Check if any other field has error
+                isFormValid = false;
+                break;
+            }
         }
-
-
 
         dispatch({
             type: UPDATE_FORM,
@@ -75,7 +73,6 @@ const FormProvider = ({ children }) => {
             data: { name, value, hasError, error, touched: true, isFormValid },
         });
     };
-
 
 
     return <FormContext.Provider
