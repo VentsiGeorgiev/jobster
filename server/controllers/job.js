@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Job from '../models/Job.js';
 import User from '../models/User.js';
 
@@ -194,4 +195,30 @@ const getJob = async (req, res) => {
 
 };
 
-export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob };
+const getStats = async (req, res) => {
+
+    let statsJS = await Job.aggregate([
+        { $match: { skills: 'javascript' } },
+    ]);
+    let statsJava = await Job.aggregate([
+        { $match: { skills: 'java' } },
+    ]);
+    let statsCSharp = await Job.aggregate([
+        { $match: { skills: 'c-sharp' } },
+    ]);
+    let statsPython = await Job.aggregate([
+        { $match: { skills: 'python' } },
+    ]);
+
+    let stats = {
+        jsTotalJobs: statsJS.length,
+        javaTotalJobs: statsJava.length,
+        cSharpTotalJobs: statsCSharp.length,
+        pythonTotalJobs: statsPython.length,
+    };
+
+    res.status(200).json(stats);
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats };

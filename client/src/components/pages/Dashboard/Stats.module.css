@@ -1,6 +1,30 @@
+.all-stats-container {
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1rem;
+}
 .stats-wrapper {
-    display: grid;
-    row-gap: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.stats-card {
+    padding: 1rem;
+    border: 1px solid var(--primary-800);
+    box-shadow: var(--shadow-2);
+    width: calc(25% - 1rem);
+    border-radius: 4px;
+}
+
+.stats-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {

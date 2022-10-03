@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob } from '../controllers/job.js';
+import { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats } from '../controllers/job.js';
 import protect from '../middleware/auth.js';
 
 
@@ -12,5 +12,6 @@ router.route('/my-jobs/:id')
     .get(protect, getJob)
     .delete(protect, deleteJob)
     .put(protect, updateJob);
+router.route('/stats').get(protect, getStats);
 
 export default router;
