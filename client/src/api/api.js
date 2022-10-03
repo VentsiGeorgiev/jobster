@@ -98,9 +98,11 @@ export async function createJobOffer(job) {
     return result;
 }
 
-export async function getAllJobs({ type, sort, status, term, page }) {
+export async function getAllJobs({ type, sort, term, page, seniority, skills }) {
+    console.log('type, sort, term, page, seniority, skills');
+    console.log(type, sort, term, page, seniority, skills);
 
-    let url = `/api/v1/job/all-jobs?page=${page}&jobType=${type}&sort=${sort}&status=${status}`;
+    let url = `/api/v1/job/all-jobs?page=${page}&type=${type}&sort=${sort}&seniority=${seniority}&skills=${skills}`;
     if (term) {
         url = url + `&search=${term}`;
     }

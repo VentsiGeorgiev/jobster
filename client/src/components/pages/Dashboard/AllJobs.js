@@ -5,20 +5,20 @@ import styles from './AllJobs.module.css';
 
 function AllJobs() {
 
-    const { allJobs, fetchJobs, searchCriteria, handleSearch, page } = useJobsContext();
-    const { type, status, sort, term } = searchCriteria;
+    const { allJobs, fetchJobs, searchCriteria, handleSearch, page, totalJobs } = useJobsContext();
+    const { type, sort, term, seniority, skills } = searchCriteria;
 
     useEffect(() => {
 
         const setTimeoutId = setTimeout(() => {
-            fetchJobs({ type, status, sort, term, page });
+            fetchJobs({ type, sort, term, page, seniority, skills });
         }, 500);
 
         return () => {
             clearTimeout(setTimeoutId);
         };
 
-    }, [type, status, sort, term, page]);
+    }, [type, sort, term, page, seniority, skills]);
 
     const handleChange = (e) => {
         const name = [e.target.name];
@@ -51,25 +51,40 @@ function AllJobs() {
                                 value={type}
                                 onChange={handleChange}
                             >
-                                <option value='all'>all</option>
-                                <option value='Full-time'>Full-time</option>
-                                <option value='Part-time'>Part-time</option>
-                                <option value='Remote'>Remote</option>
-                                <option value='Internship'>Internship</option>
+                                <option value='all'>All</option>
+                                <option value='full-time'>Full-time</option>
+                                <option value='part-time'>Part-time</option>
                             </select>
                         </div>
                         <div className='form-row'>
-                            <label className='label' htmlFor='status'>Status</label>
+                            <label className='label' htmlFor='seniority'>Seniority</label>
                             <select
-                                name='status'
-                                id='status'
-                                value={status}
+                                name='seniority'
+                                id='seniority'
+                                value={seniority}
                                 onChange={handleChange}
                             >
-                                <option value='all'>all</option>
-                                <option value='Interview'>Interview</option>
-                                <option value='Declined'>Declined</option>
-                                <option value='Pending'>Pending</option>
+                                <option value='all'>All</option>
+                                <option value='intern'>Intern</option>
+                                <option value='junior'>Junior</option>
+                                <option value='mid-level'>Mid-Level</option>
+                                <option value='senior'>Senior</option>
+                                <option value='team-lead'>Team Lead</option>
+                            </select>
+                        </div>
+                        <div className='form-row'>
+                            <label className='label' htmlFor='skills'>Skills</label>
+                            <select
+                                name='skills'
+                                id='skills'
+                                value={skills}
+                                onChange={handleChange}
+                            >
+                                <option value='all'>All</option>
+                                <option value='javascript'>JavaScript</option>
+                                <option value='java'>Java</option>
+                                <option value='c-sharp'>C#</option>
+                                <option value='python'>Python</option>
                             </select>
                         </div>
                         <div className='form-row'>
@@ -87,6 +102,9 @@ function AllJobs() {
                     </div>
                 </form>
             </section>
+
+            <h4>Total Jobs: {totalJobs}</h4>
+
             <section className={styles['all-jobs-container']}>
 
                 {allJobs.length > 0 ? allJobs.map((job) => (

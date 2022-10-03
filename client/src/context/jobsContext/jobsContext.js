@@ -15,7 +15,9 @@ const initialState = {
         term: '',
         type: 'all',
         status: 'all',
-        sort: 'latest'
+        sort: 'latest',
+        seniority: 'all',
+        skills: 'all',
     },
     page: 1,
     totalJobs: 0,
@@ -63,11 +65,11 @@ const JobsProvider = ({ children }) => {
         resetJobForm();
     };
 
-    const fetchJobs = async ({ type, status, sort, term, page }) => {
+    const fetchJobs = async ({ type, status, sort, term, page, seniority, skills }) => {
 
         dispatch({ type: FETCH_ALL_JOBS_PENDING });
         try {
-            const response = await getAllJobs({ type, status, sort, term, page });
+            const response = await getAllJobs({ type, status, sort, term, page, seniority, skills });
             const { jobs, totalJobs, numOfPages } = response;
             dispatch({ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs, totalJobs, numOfPages } });
         } catch (error) {

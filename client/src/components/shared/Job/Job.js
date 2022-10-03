@@ -23,6 +23,13 @@ function Job({ job }) {
                     <span className={styles['title']}>Job position:</span>  {job.position}
                 </h3>
                 <h4 className={styles['header-job-company']}><span className={styles['title']}>Company:</span> {job.company}</h4>
+                <h4 className={styles['header-job-company']}>
+                    <span className={styles['title']}>
+                        Skills:
+                    </span>
+                    {job.skills === 'c-sharp' ? `${job.skills.split('-')[0]}#` : `${job.skills}`}
+                </h4>
+                <h4 className={styles['header-job-company']}><span className={styles['title']}>Level:</span> {job.seniority}</h4>
 
             </header>
             <main className={styles['job-content']}>
@@ -42,7 +49,7 @@ function Job({ job }) {
                             <BiBriefcase className={styles['job-icon']} />
                             Type:
                         </span>
-                        {job.jobType}
+                        {job.type}
                     </p>
                 </div>
                 <div className={styles['job-row']}>

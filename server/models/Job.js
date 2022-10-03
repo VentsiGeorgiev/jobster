@@ -7,15 +7,20 @@ const JobSchema = new mongoose.Schema({
     position: {
         type: String
     },
-    status: {
+    type: {
         type: String,
-        enum: ['Interview', 'Declined', 'Pending'],
-        default: 'Interview',
+        enum: ['full-time', 'part-time'],
+        default: 'all',
     },
-    jobType: {
+    seniority: {
         type: String,
-        enum: ['Full-time', 'Part-time', 'Remote', 'Internship'],
-        default: 'Full-time',
+        enum: ['intern', 'junior', 'mid-level', 'senior', 'team-lead'],
+        default: 'all',
+    },
+    skills: {
+        type: String,
+        enum: ['javascript', 'java', 'c-sharp', 'python'],
+        default: 'all',
     },
     jobLocation: {
         type: String

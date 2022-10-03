@@ -36,15 +36,22 @@ const createJob = async (req, res) => {
 
 const getAllJobs = async (req, res) => {
     try {
-        const { status, jobType, sort, search } = req.query;
+        const { type, sort, search, skills, seniority } = req.query;
+        console.log('req.query');
+        console.log(req.query);
         const queryObject = {};
 
-        if (status && status !== 'all') {
-            queryObject.status = status;
+        if (type && type !== 'all') {
+            queryObject.type = type;
         }
-        if (jobType && jobType !== 'all') {
-            queryObject.jobType = jobType;
+        if (seniority && seniority !== 'all') {
+            queryObject.seniority = seniority;
         }
+        if (skills && skills !== 'all') {
+            queryObject.skills = skills;
+        }
+        console.log(queryObject);
+
         if (search) {
             queryObject.position = { $regex: search, $options: 'i' };
         }
