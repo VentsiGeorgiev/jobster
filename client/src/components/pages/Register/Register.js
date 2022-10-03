@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/appContext';
 import { Logo, FormInputRow, Alert } from '../../shared/';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,7 @@ function Register() {
         const name = e.target.name;
         const value = e.target.value;
         const { hasError, error } = validateInput(name, value, password);
-        onInputChange(name, value, hasError, error, state);
+        onInputChange(name, value, hasError, error, state, isMember);
 
     };
 
@@ -55,7 +55,7 @@ function Register() {
         const name = e.target.name;
         const value = e.target.value;
         const { hasError, error } = validateInput(name, value, password);
-        onFocusOut(name, value, hasError, error, state);
+        onFocusOut(name, value, hasError, error, state, isMember);
     };
 
     return (
@@ -66,7 +66,6 @@ function Register() {
                     <h3>{isMember ? 'Register' : 'Login'}</h3>
                     <Alert />
                 </div>
-                {isFormValid && <Alert message='Invalid form' alertType='danger' />}
                 {isMember &&
                     <div className='input-wrapper'>
                         {<FormInputRow

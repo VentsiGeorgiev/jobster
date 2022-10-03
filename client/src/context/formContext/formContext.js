@@ -23,23 +23,33 @@ const FormProvider = ({ children }) => {
         dispatch({ type: TOGGLE_MEMBER });
     };
 
-    const onInputChange = (name, value, hasError, error, state) => {
+    const onInputChange = (name, value, hasError, error, state, isMember) => {
 
         let isFormValid = true;
 
-        for (const key in state) {
-            const item = state[key];
-            // Check if the current field has error
-            if (key === name && hasError) {
+        if (!isMember) {
+            // Check for inputs on login
+            if (state.email.hasError || state.password.hasError) {
                 isFormValid = false;
-                break;
             }
-            else if (key !== name && item.hasError) {
-                // Check if any other field has error
-                isFormValid = false;
-                break;
+        } else {
+            // Check for inputs on register
+            for (const key in state) {
+                const item = state[key];
+                // Check if the current field has error
+                if (key === name && hasError) {
+                    isFormValid = false;
+                    break;
+                }
+                else if (key !== name && item.hasError) {
+                    // Check if any other field has error
+                    isFormValid = false;
+                    break;
+                }
             }
         }
+
+
 
         dispatch({
             type: UPDATE_FORM,
@@ -54,19 +64,32 @@ const FormProvider = ({ children }) => {
         });
     };
 
-    const onFocusOut = (name, value, hasError, error, state) => {
+    const onFocusOut = (name, value, hasError, error, state, isMember) => {
 
         let isFormValid = true;
-        for (const key in state) {
-            const item = state[key];
-            if (key === name && hasError) {
+
+        if (!isMember) {
+            // Check for inputs on login
+            if (state.email.hasError || state.password.hasError) {
                 isFormValid = false;
-                break;
-            } else if (key !== name && item.hasError) {
-                isFormValid = false;
-                break;
+            }
+        } else {
+            // Check for inputs on register
+            for (const key in state) {
+                const item = state[key];
+                // Check if the current field has error
+                if (key === name && hasError) {
+                    isFormValid = false;
+                    break;
+                } else if (key !== name && item.hasError) {
+                    // Check if any other field has error
+                    isFormValid = false;
+                    break;
+                }
             }
         }
+
+
 
         dispatch({
             type: UPDATE_FORM,
