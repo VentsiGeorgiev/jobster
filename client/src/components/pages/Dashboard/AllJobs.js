@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { Job, PageButtons } from '../../shared';
+import { Job, PageButtons, Spinner } from '../../shared';
 import styles from './AllJobs.module.css';
 
 function AllJobs() {
 
-    const { allJobs, fetchJobs, searchCriteria, handleSearch, page, totalJobs } = useJobsContext();
+    const { allJobs, fetchJobs, searchCriteria, handleSearch, page, totalJobs, isLoading } = useJobsContext();
     const { type, sort, term, seniority, skills } = searchCriteria;
 
     useEffect(() => {
@@ -25,6 +25,10 @@ function AllJobs() {
         const value = [e.target.value];
         handleSearch({ name, value });
     };
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <>

@@ -3,11 +3,11 @@ import { useAppContext } from '../../../context/appContext';
 import styles from './Profile.module.css';
 import { FaUserEdit } from 'react-icons/fa';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { Alert, Job } from '../../shared';
+import { Alert, Job, Spinner } from '../../shared';
 
 function Profile() {
-    const { user, updateUser, isEditing, toggleEdit } = useAppContext();
-    const { userJobs, fetchUserJobs } = useJobsContext();
+    const { user, updateUser, isEditing, toggleEdit, isLoading: userIsLoading } = useAppContext();
+    const { userJobs, fetchUserJobs, isLoading } = useJobsContext();
 
     useEffect(() => {
         fetchUserJobs();
@@ -22,6 +22,13 @@ function Profile() {
         };
         updateUser(data);
     };
+
+    if (userIsLoading) {
+        return <Spinner />;
+    }
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <>
