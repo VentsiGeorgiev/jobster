@@ -233,4 +233,30 @@ const getStats = async (req, res) => {
 
 };
 
-export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats };
+const jobApply = async (req, res) => {
+
+    try {
+        const { id } = req.params;
+        const userId = req.user._id.toString();
+
+        const job = await Job.findById(id);
+
+        if (userId === job.createdBy.toString()) {
+            throw new Error('Not allowed to apply for your own job position');
+        }
+
+        if (job.candidates.includes(userId)) {
+            throw new Error('User already apply for the job');
+        }
+
+        job.candidates.push(userId);
+        job.save();
+
+        res.status(200).json({ message: 'Successfully apply for job' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats, jobApply };
