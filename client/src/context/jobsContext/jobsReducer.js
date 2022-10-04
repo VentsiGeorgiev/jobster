@@ -129,7 +129,6 @@ const reducer = (state, action) => {
                 job,
             };
         case CLEAR_FORM_DATA:
-            console.log(action.payload);
             return {
                 ...state,
                 job: action.payload
@@ -143,8 +142,10 @@ const reducer = (state, action) => {
             const currentJob = {
                 company: action.payload.company,
                 position: action.payload.position,
-                status: action.payload.status,
-                jobType: action.payload.jobType,
+                type: action.payload.type,
+                seniority: action.payload.seniority,
+                skills: action.payload.skills,
+                description: action.payload.description,
                 jobLocation: action.payload.jobLocation,
             };
             return {

@@ -45,8 +45,6 @@ export const validateInput = (name, value, password) => {
             }
             break;
         case 'repass':
-            console.log('password');
-            console.log(password);
             if (value.trim() === '') {
                 hasError = true;
                 error = 'Please repeat your password';

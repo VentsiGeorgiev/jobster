@@ -4,7 +4,6 @@ import User from '../models/User.js';
 
 const createJob = async (req, res) => {
     try {
-        console.log(req.body);
 
         const {
             company,
@@ -43,8 +42,7 @@ const createJob = async (req, res) => {
 const getAllJobs = async (req, res) => {
     try {
         const { type, sort, search, skills, seniority } = req.query;
-        console.log('req.query');
-        console.log(req.query);
+
         const queryObject = {};
 
         if (type && type !== 'all') {
@@ -56,7 +54,6 @@ const getAllJobs = async (req, res) => {
         if (skills && skills !== 'all') {
             queryObject.skills = skills;
         }
-        console.log(queryObject);
 
         if (search) {
             queryObject.position = { $regex: search, $options: 'i' };
@@ -164,13 +161,15 @@ const updateJob = async (req, res) => {
         // res.status(200).json(updatedJob);
 
         // Update
-        const { company, position, status, jobType, jobLocation } = req.body;
+        const { company, position, type, seniority, skills, description, jobLocation } = req.body;
         const currentJob = {
             company,
             position,
-            status,
-            jobType,
-            jobLocation,
+            type,
+            seniority,
+            skills,
+            description,
+            jobLocation
         };
         Job.findByIdAndUpdate(jobId, currentJob, { new: true }, (err, docs) => {
             if (err) {

@@ -94,16 +94,11 @@ export async function update(user) {
 
 // # Jobs
 export async function createJobOffer(job) {
-    console.log('job');
-    console.log(job);
     const result = await post('/api/v1/job/add-job', job);
     return result;
 }
 
 export async function getAllJobs({ type, sort, term, page, seniority, skills }) {
-    console.log('type, sort, term, page, seniority, skills');
-    console.log(type, sort, term, page, seniority, skills);
-
     let url = `/api/v1/job/all-jobs?page=${page}&type=${type}&sort=${sort}&seniority=${seniority}&skills=${skills}`;
     if (term) {
         url = url + `&search=${term}`;
@@ -138,8 +133,10 @@ export async function updateJob(id, data) {
     const job = {
         company: result.company,
         position: result.position,
-        status: result.status,
-        jobType: result.jobType,
+        type: result.type,
+        seniority: result.seniority,
+        skills: result.skills,
+        description: result.description,
         jobLocation: result.jobLocation,
     };
     return job;

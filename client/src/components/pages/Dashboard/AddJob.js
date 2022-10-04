@@ -22,8 +22,6 @@ function AddJob() {
     const submitHandler = (e) => {
         e.preventDefault();
 
-        console.log(job);
-
         const isFieldEmpty = Object.values(job).some(x => x.trim() === '');
         if (isFieldEmpty) {
             displayAlert('All Fields Are Required', 'danger');
