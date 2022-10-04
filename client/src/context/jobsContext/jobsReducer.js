@@ -25,6 +25,9 @@ import {
     FETCH_STATS_JOBS_PENDING,
     FETCH_STATS_JOBS_SUCCESS,
     FETCH_STATS_JOBS_REJECTED,
+    FETCH_CURRENT_JOB_PENDING,
+    FETCH_CURRENT_JOB_SUCCESS,
+    FETCH_CURRENT_JOB_REJECTED,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -219,6 +222,26 @@ const reducer = (state, action) => {
                 jobStats: action.payload
             };
         case FETCH_STATS_JOBS_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
+            };
+        case FETCH_CURRENT_JOB_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_CURRENT_JOB_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                currentJob: action.payload
+            };
+        case FETCH_CURRENT_JOB_REJECTED:
             return {
                 ...state,
                 isLoading: false,

@@ -7,13 +7,14 @@ import { Spinner } from '../../shared';
 
 function JobDetails() {
 
-    const { getSingleJob, job, isLoading } = useJobsContext();
-    const { company, position, type, skills, description, jobLocation } = job;
+    const { getCurrentJob, currentJob, isLoading } = useJobsContext();
+    const { company, position, type, skills, description, jobLocation } = currentJob;
     const { id } = useParams();
 
     useEffect(() => {
-        getSingleJob(id);
+        getCurrentJob(id);
     }, []);
+
 
     if (isLoading) {
         return <Spinner />;
