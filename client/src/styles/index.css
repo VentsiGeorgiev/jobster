@@ -168,6 +168,12 @@ li {
     color: var(--white);
 }
 
+.btn-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn-secondary {
     background: var(--grey-700);
     background-color: var(--white);

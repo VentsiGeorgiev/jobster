@@ -1,0 +1,10 @@
+.job-details-container {
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1rem;
+}
+
+.apply-icon {
+    margin-right: 6px;
+}

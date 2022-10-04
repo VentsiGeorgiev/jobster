@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Landing, Register, NotFound } from './components/pages';
-import { Stats, AddJob, AllJobs, Profile, } from './components/pages';
+import { Stats, AddJob, AllJobs, Profile, JobDetails } from './components/pages';
 import { SharedLayout } from './components/shared';
 import ProtectRoute from './utils/ProtectRoute';
 
@@ -18,6 +18,7 @@ function App() {
                         <Route path='all-jobs' element={<AllJobs />} />
                         <Route path='add-job' element={<AddJob />} />
                         <Route path='profile' element={<Profile />} />
+                        <Route path='all-jobs/:id' element={<JobDetails />} />
                     </Route>
                     <Route path='/landing' element={<Landing />} />
                     <Route path='/register' element={<Register />} />

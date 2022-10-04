@@ -2,7 +2,7 @@ import styles from './Job.module.css';
 import { BiBriefcase, BiCalendar, BiCurrentLocation } from 'react-icons/bi';
 import { useAppContext } from '../../../context/appContext';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Job({ job }) {
 
@@ -83,7 +83,9 @@ function Job({ job }) {
                     </>
                     :
                     <>
-                        <button className='btn btn-primary'>Read More</button>
+                        <Link
+                            to={job._id}
+                            className='btn btn-primary'>Read More</Link>
                     </>
                 }
             </footer>

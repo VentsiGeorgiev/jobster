@@ -5,6 +5,7 @@ import AddJob from './Dashboard/AddJob';
 import AllJobs from './Dashboard/AllJobs';
 import Profile from './Dashboard/Profile';
 import Stats from './Dashboard/Stats';
+import JobDetails from './JobDetails/JobDetails';
 export {
     Landing,
     Register,
@@ -13,4 +14,5 @@ export {
     AllJobs,
     Profile,
     Stats,
+    JobDetails,
 };

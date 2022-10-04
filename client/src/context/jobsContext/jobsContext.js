@@ -164,6 +164,7 @@ const JobsProvider = ({ children }) => {
         handleSearch,
         changePage,
         fetchStatsJobs,
+        getSingleJob,
     }}
     >
         {children}
