@@ -8,6 +8,7 @@ import LargeSidebar from './LargeSidebar/LargeSidebar';
 import FormRow from './FormInputRow/FormInputRow';
 import Job from './Job/Job';
 import PageButtons from './PageButtons/PageButtons';
+import Spinner from './Spinner/Spinner';
 export {
     Logo,
     FormInputRow,
@@ -19,4 +20,5 @@ export {
     FormRow,
     Job,
     PageButtons,
+    Spinner
 };

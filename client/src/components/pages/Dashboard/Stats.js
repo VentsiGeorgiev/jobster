@@ -5,14 +5,19 @@ import pythonImage from '../../../assets/svg/python.svg';
 import styles from './Stats.module.css';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { useEffect } from 'react';
+import { Spinner } from '../../shared';
 
 function Stats() {
 
-    const { fetchStatsJobs, jobStats } = useJobsContext();
+    const { fetchStatsJobs, jobStats, isLoading } = useJobsContext();
 
     useEffect(() => {
         fetchStatsJobs();
     }, []);
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <>
