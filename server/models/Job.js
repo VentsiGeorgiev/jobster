@@ -22,6 +22,9 @@ const JobSchema = new mongoose.Schema({
         enum: ['javascript', 'java', 'c-sharp', 'python'],
         default: 'all',
     },
+    description: {
+        type: String
+    },
     jobLocation: {
         type: String
     },

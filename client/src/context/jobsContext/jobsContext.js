@@ -7,9 +7,11 @@ const initialState = {
     job: {
         company: '',
         position: '',
-        status: 'Interview',
-        jobType: 'Full-time',
         jobLocation: '',
+        description: '',
+        type: 'full-time',
+        seniority: 'intern',
+        skills: 'javascript',
     },
     searchCriteria: {
         term: '',

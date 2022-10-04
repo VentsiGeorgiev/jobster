@@ -10,7 +10,7 @@ function AddJob() {
     const { createJob, handleJobChange, job, isEditing, editJob, editJobId } = useJobsContext();
     const { displayAlert, isError } = useAppContext();
 
-    const { company, position, status, jobType, jobLocation, } = job;
+    const { company, position, seniority, type, jobLocation, skills, description } = job;
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -21,6 +21,8 @@ function AddJob() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
+        console.log(job);
 
         const isFieldEmpty = Object.values(job).some(x => x.trim() === '');
         if (isFieldEmpty) {
@@ -60,39 +62,6 @@ function AddJob() {
                     handleChange={handleChange}
                 />
 
-                <div className='form-row form-row-select'>
-                    <label className='label' htmlFor='status'>Status</label>
-                    <select
-                        id='status'
-                        type='select'
-                        name='status'
-                        value={status}
-                        onChange={handleChange}
-                    >
-                        <option value='Interview'>Interview</option>
-                        <option value='Declined'>Declined</option>
-                        <option value='Pending'>Pending</option>
-                    </select>
-                    <IoIosArrowDropdownCircle className='dropdown-icon' />
-                </div>
-
-                <div className='form-row form-row-select'>
-                    <label className='label' htmlFor='job-type'>Job Type</label>
-                    <select
-                        id='job-type'
-                        type='select'
-                        name='jobType'
-                        value={jobType}
-                        onChange={handleChange}
-                    >
-                        <option value='Full-time'>Full time</option>
-                        <option value='Part-time'>Part time</option>
-                        <option value='Remote'>Remote</option>
-                        <option value='Internship'>Internship</option>
-                    </select>
-                    <IoIosArrowDropdownCircle className='dropdown-icon' />
-                </div>
-
                 <FormRow
                     id='job-location'
                     type='text'
@@ -101,6 +70,67 @@ function AddJob() {
                     value={jobLocation}
                     handleChange={handleChange}
                 />
+                <div className='form-row form-row-select'>
+                    <label className='label' htmlFor='type'>Description</label>
+                    <textarea
+                        name='description'
+                        id='description'
+                        onChange={handleChange}
+                        className='form-input'
+                        value={description}
+                    />
+                </div>
+                <div className={styles['wrap-inputs']}>
+                    <div className='form-row form-row-select'>
+                        <label className='label' htmlFor='type'>Type</label>
+                        <select
+                            name='type'
+                            id='type'
+                            value={type}
+                            onChange={handleChange}
+                        >
+
+                            <option value='full-time'>Full-time</option>
+                            <option value='part-time'>Part-time</option>
+                        </select>
+                        <IoIosArrowDropdownCircle className='dropdown-icon' />
+                    </div>
+
+                    <div className='form-row form-row-select'>
+                        <label className='label' htmlFor='seniority'>Seniority</label>
+                        <select
+                            name='seniority'
+                            id='seniority'
+                            value={seniority}
+                            onChange={handleChange}
+                        >
+
+                            <option value='intern'>Intern</option>
+                            <option value='junior'>Junior</option>
+                            <option value='mid-level'>Mid-Level</option>
+                            <option value='senior'>Senior</option>
+                            <option value='team-lead'>Team Lead</option>
+                        </select>
+                        <IoIosArrowDropdownCircle className='dropdown-icon' />
+                    </div>
+                    <div className='form-row form-row-select'>
+                        <label className='label' htmlFor='skills'>Skills</label>
+                        <select
+                            name='skills'
+                            id='skills'
+                            value={skills}
+                            onChange={handleChange}
+                        >
+
+                            <option value='javascript'>JavaScript</option>
+                            <option value='java'>Java</option>
+                            <option value='c-sharp'>C#</option>
+                            <option value='python'>Python</option>
+                        </select>
+                        <IoIosArrowDropdownCircle className='dropdown-icon' />
+                    </div>
+                </div>
+
 
                 <button className='btn btn-primary'>{isEditing ? 'Update' : 'Create'}</button>
 

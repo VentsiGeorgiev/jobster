@@ -12,10 +12,11 @@ const createJob = async (req, res) => {
             type,
             seniority,
             skills,
-            jobLocation
+            jobLocation,
+            description,
         } = req.body;
 
-        if (!company || !position || !type || !seniority || !skills || !jobLocation) {
+        if (!company || !position || !type || !seniority || !skills || !jobLocation || !description) {
             throw new Error('All fields are required');
         }
 
@@ -26,6 +27,7 @@ const createJob = async (req, res) => {
             seniority,
             skills,
             jobLocation,
+            description,
             createdBy: req.user._id,
         });
 

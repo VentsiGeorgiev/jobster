@@ -94,6 +94,8 @@ export async function update(user) {
 
 // # Jobs
 export async function createJobOffer(job) {
+    console.log('job');
+    console.log(job);
     const result = await post('/api/v1/job/add-job', job);
     return result;
 }

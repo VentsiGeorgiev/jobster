@@ -1,6 +1,6 @@
 import javascriptImage from '../../../assets/svg/javascript.svg';
 import javaImage from '../../../assets/svg/java.svg';
-import cImage from '../../../assets/svg/c.svg';
+import cImage from '../../../assets/svg/csharp.svg';
 import pythonImage from '../../../assets/svg/python.svg';
 import styles from './Stats.module.css';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
