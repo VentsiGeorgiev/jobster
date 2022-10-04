@@ -142,3 +142,8 @@ export async function updateJob(id, data) {
     return job;
 }
 
+export async function jobApply(id) {
+    const result = await post(`/api/v1/job/apply/${id}`);
+    return result;
+}
+

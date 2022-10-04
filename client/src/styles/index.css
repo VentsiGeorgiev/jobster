@@ -129,6 +129,7 @@ button {
 }
 button:disabled {
     cursor: not-allowed;
+    background-color: var(--grey-200);
 }
 ul {
     list-style-type: none;
