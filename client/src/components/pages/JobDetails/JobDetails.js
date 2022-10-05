@@ -7,14 +7,13 @@ import { Alert, Spinner } from '../../shared';
 
 function JobDetails() {
 
-    const { getCurrentJob, currentJob, isLoading, applyForJob, showAlert } = useJobsContext();
+    const { getCurrentJob, currentJob, isLoading, applyForJob, showAlert, hasApplied, isOwner } = useJobsContext();
     const { company, position, type, skills, description, jobLocation } = currentJob;
     const { id } = useParams();
 
     useEffect(() => {
         getCurrentJob(id);
     }, []);
-
 
     if (isLoading) {
         return <Spinner />;
@@ -34,13 +33,16 @@ function JobDetails() {
                 <p>{description}</p>
                 <p>{type}</p>
                 <p>Company: {company}</p>
-                <button
-                    onClick={() => applyForJob(id)}
-                    className='btn btn-primary btn-center'
-                >
-                    <FaRegPaperPlane className={styles['apply-icon']} />
-                    Apply
-                </button>
+                {!isOwner &&
+                    <button
+                        disabled={hasApplied}
+                        onClick={() => applyForJob(id)}
+                        className='btn btn-primary btn-center'
+                    >
+                        <FaRegPaperPlane className={styles['apply-icon']} />
+                        Apply
+                    </button>}
+
             </section>
         </>
     );

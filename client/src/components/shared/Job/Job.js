@@ -69,6 +69,10 @@ function Job({ job }) {
                 {isOwner
                     ?
                     <>
+                        <Link
+                            to={`/all-jobs/${job._id}`}
+                            className='btn btn-primary'>View
+                        </Link>
                         <button
                             onClick={() => editHandler(job._id)}
                             className='btn btn-edit'

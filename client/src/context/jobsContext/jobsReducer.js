@@ -31,6 +31,7 @@ import {
     JOB_APPLY_PENDING,
     JOB_APPLY_SUCCESS,
     JOB_APPLY_REJECTED,
+    CLEAR_JOB_ALERT,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -242,7 +243,9 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 isLoading: false,
-                currentJob: action.payload
+                hasApplied: action.payload.hasApplied,
+                isOwner: action.payload.isOwner,
+                currentJob: action.payload.response
             };
         case FETCH_CURRENT_JOB_REJECTED:
             return {
@@ -263,6 +266,7 @@ const reducer = (state, action) => {
                 ...state,
                 isLoading: false,
                 showAlert: true,
+                hasApplied: true,
                 message: action.payload,
                 alertType: 'success',
             };
@@ -274,6 +278,14 @@ const reducer = (state, action) => {
                 isError: true,
                 message: action.payload,
                 alertType: 'danger',
+            };
+        case CLEAR_JOB_ALERT:
+            return {
+                ...state,
+                showAlert: false,
+                isError: false,
+                message: '',
+                alertType: '',
             };
         default:
             throw new Error(`No such action ${action.type}`);
