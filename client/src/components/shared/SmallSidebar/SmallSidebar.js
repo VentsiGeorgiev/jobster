@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import styles from './SmallSidebar.module.css';
 import { AiOutlineClose, AiOutlineFileSearch, AiOutlineFileAdd, AiOutlineUser } from 'react-icons/ai';
@@ -19,7 +19,11 @@ function SmallSidebar() {
                         <AiOutlineClose className={styles['close-icon']} />
                     </button>
                 </div>
-                <Logo />
+                <div className={styles['logo-section']}>
+                    <Link to='/' onClick={toggleSidebar}>
+                        <Logo />
+                    </Link>
+                </div>
                 <nav>
                     <menu className={styles['nav-menu']}>
                         <li>
@@ -28,7 +32,7 @@ function SmallSidebar() {
                                 to='/'
                                 end
                                 className={({ isActive }) =>
-                                    isActive ? styles.activeStyle : ''
+                                    isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                 }
                             >
                                 <ImStatsBars />
@@ -40,7 +44,7 @@ function SmallSidebar() {
                                 onClick={toggleSidebar}
                                 to='all-jobs'
                                 className={({ isActive }) =>
-                                    isActive ? styles.activeStyle : ''
+                                    isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                 }
                             >
                                 <AiOutlineFileSearch />
@@ -52,7 +56,7 @@ function SmallSidebar() {
                                 onClick={toggleSidebar}
                                 to='add-job'
                                 className={({ isActive }) =>
-                                    isActive ? styles.activeStyle : ''
+                                    isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                 }
                             >
                                 <AiOutlineFileAdd />
@@ -64,7 +68,7 @@ function SmallSidebar() {
                                 onClick={toggleSidebar}
                                 to='profile'
                                 className={({ isActive }) =>
-                                    isActive ? styles.activeStyle : ''
+                                    isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                 }
                             >
                                 <AiOutlineUser />

@@ -11,7 +11,7 @@ function Landing() {
                 <div className={`${styles.info}`}>
                     <h1>Find the perfect job for you</h1>
                     <p>Search your career opportunity through 10,000+ jobs</p>
-                    <Link to='/register' className={`btn ${styles['hero-btn']}`}>Login / Register</Link>
+                    <Link to='/register' className={`btn ${styles['hero-btn']} btn-primary`}>Login / Register</Link>
                 </div>
                 <div>
                     <img className={`img ${styles['hero-image']}`} src={heroImage} alt="jobster" />

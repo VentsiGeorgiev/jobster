@@ -2,6 +2,10 @@
     background-color: var(--white);
     display: none;
 }
+.logo-section {
+    width: 50%;
+    margin: 0 auto;
+}
 
 .btn-wrapper {
     text-align: right;
@@ -30,7 +34,6 @@ li a {
 
 .activeStyle {
     color: var(--primary-800);
-    padding-left: 8px;
 }
 
 @media screen and (min-width: 860px) {
@@ -43,8 +46,7 @@ li a {
     }
     .content {
         position: sticky;
-        top: 0;
-        padding: 2rem;
+        top: 2rem;
     }
 
     .show {

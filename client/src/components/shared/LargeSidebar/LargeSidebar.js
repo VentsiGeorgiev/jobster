@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { AiOutlineFileSearch, AiOutlineFileAdd, AiOutlineUser } from 'react-icons/ai';
 import { ImStatsBars } from 'react-icons/im';
 import styles from './LargeSidebar.module.css';
+import Logo from '../Logo/Logo';
 
 function LargeSidebar() {
     const { showSidebar } = useJobsContext();
@@ -12,7 +13,11 @@ function LargeSidebar() {
             {showSidebar &&
                 <aside className={showSidebar ? `${styles['sidebar-container']}` : styles.show}>
                     <div className={styles.content}>
-                        <h2>Jobster</h2>
+                        <div className={styles['logo-section']}>
+                            <Link to='/'>
+                                <Logo />
+                            </Link>
+                        </div>
                         <nav>
                             <menu className={styles['nav-menu']}>
                                 <li>
@@ -20,7 +25,7 @@ function LargeSidebar() {
                                         to=''
                                         end
                                         className={({ isActive }) =>
-                                            isActive ? styles.activeStyle : ''
+                                            isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                         }
                                     >
                                         <ImStatsBars />
@@ -31,7 +36,7 @@ function LargeSidebar() {
                                     <NavLink
                                         to='all-jobs'
                                         className={({ isActive }) =>
-                                            isActive ? styles.activeStyle : ''
+                                            isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                         }
                                     >
                                         <AiOutlineFileSearch />
@@ -42,7 +47,7 @@ function LargeSidebar() {
                                     <NavLink
                                         to='add-job'
                                         className={({ isActive }) =>
-                                            isActive ? styles.activeStyle : ''
+                                            isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                         }
                                     >
                                         <AiOutlineFileAdd />
@@ -52,7 +57,7 @@ function LargeSidebar() {
                                 <li>
                                     <NavLink
                                         className={({ isActive }) =>
-                                            isActive ? styles.activeStyle : ''
+                                            isActive ? `${styles.activeStyle} btn-center` : 'btn-center'
                                         }
                                         to='profile'
                                     >

@@ -1,5 +1,5 @@
 .hero {
-    min-height: calc(100vh - 19vh);
+    min-height: calc(100vh - 20vh);
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
