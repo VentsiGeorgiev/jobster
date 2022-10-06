@@ -3,11 +3,12 @@ import { BiBriefcase, BiCalendar, BiCurrentLocation } from 'react-icons/bi';
 import { useAppContext } from '../../../context/appContext';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { Link, useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 function Job({ job }) {
 
     const { user } = useAppContext();
-    const { deleteJob, loadJob } = useJobsContext();
+    const { loadJob, isModalOpen, toggleDeleteModal } = useJobsContext();
     const isOwner = job.createdBy === user._id;
     const navigate = useNavigate();
     const editHandler = (id) => {
@@ -18,6 +19,7 @@ function Job({ job }) {
     return (
 
         <article className={styles['job-section']}>
+            {isModalOpen && <ConfirmationModal />}
             <header className={styles['header']}>
                 <h3 className={styles['header-job-position']}>
                     <span className={styles['title']}>Job position:</span>  {job.position}
@@ -79,11 +81,17 @@ function Job({ job }) {
                         >
                             Edit</button>
                         <button
-                            onClick={() => deleteJob(job._id)}
+                            onClick={() => toggleDeleteModal(job._id)}
                             className='btn btn-delete'
                         >
                             Delete
                         </button>
+                        {/* <button
+                            onClick={() => deleteJob(job._id)}
+                            className='btn btn-delete'
+                        >
+                            Delete
+                        </button> */}
                     </>
                     :
                     <>

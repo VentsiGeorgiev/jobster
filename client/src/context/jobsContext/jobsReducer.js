@@ -32,6 +32,7 @@ import {
     JOB_APPLY_SUCCESS,
     JOB_APPLY_REJECTED,
     CLEAR_JOB_ALERT,
+    TOGGLE_MODAL,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -116,6 +117,8 @@ const reducer = (state, action) => {
                 isLoading: false,
                 allJobs: state.allJobs.filter((x) => x._id !== action.payload.id),
                 userJobs: state.userJobs.filter((x) => x._id !== action.payload.id),
+                isModalOpen: false,
+                currentJob: {}
             };
         case DELETE_JOB_REJECTED:
             return {
@@ -286,6 +289,12 @@ const reducer = (state, action) => {
                 isError: false,
                 message: '',
                 alertType: '',
+            };
+        case TOGGLE_MODAL:
+            return {
+                ...state,
+                currentJob: action.payload,
+                isModalOpen: !state.isModalOpen
             };
         default:
             throw new Error(`No such action ${action.type}`);

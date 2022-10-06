@@ -25,14 +25,16 @@ function AddJob() {
         const isFieldEmpty = Object.values(job).some(x => x.trim() === '');
         if (isFieldEmpty) {
             displayAlert('All Fields Are Required', 'danger');
-        }
-        if (isEditing) {
-            editJob(editJobId, job);
         } else {
-            createJob(job);
+            if (isEditing) {
+                editJob(editJobId, job);
+            } else {
+                createJob(job);
 
+            }
+            navigate('/profile');
         }
-        navigate('/profile');
+
 
     };
 

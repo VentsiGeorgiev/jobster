@@ -6,7 +6,7 @@ import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { Alert, Job, Spinner } from '../../shared';
 
 function Profile() {
-    const { user, updateUser, isEditing, toggleEdit, isLoading: userIsLoading } = useAppContext();
+    const { user, updateUser, isEditing, toggleEdit, isLoading: userIsLoading, isError } = useAppContext();
     const { userJobs, fetchUserJobs, isLoading } = useJobsContext();
 
     useEffect(() => {
@@ -32,6 +32,7 @@ function Profile() {
 
     return (
         <>
+            {isError && <Alert />}
             <section className={styles['profile-container']}>
                 <h4>{user.name}</h4>
                 <div>

@@ -6,6 +6,7 @@ import styles from './Stats.module.css';
 import { useJobsContext } from '../../../context/jobsContext/jobsContext';
 import { useEffect } from 'react';
 import { Spinner } from '../../shared';
+import { Link } from 'react-router-dom';
 
 function Stats() {
 
@@ -43,7 +44,14 @@ function Stats() {
                 </div>
             </section>
             <section className={styles['all-stats-container']}>
-                <h3>Your Jobs: {jobStats.myJobs}</h3>
+                {jobStats.myJobs
+                    ? <h3>Your Jobs: {jobStats.myJobs}</h3>
+                    : <>
+                        <h4>Add you first job offer</h4>
+                        <Link className='btn btn-primary' to='/add-job'>Add Job</Link>
+                    </>
+                }
+
             </section>
         </>
     );

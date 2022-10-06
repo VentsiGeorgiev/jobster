@@ -9,6 +9,7 @@ import FormRow from './FormInputRow/FormInputRow';
 import Job from './Job/Job';
 import PageButtons from './PageButtons/PageButtons';
 import Spinner from './Spinner/Spinner';
+import ConfirmationModal from './ConfirmationModal/ConfirmationModal';
 export {
     Logo,
     FormInputRow,
@@ -20,5 +21,6 @@ export {
     FormRow,
     Job,
     PageButtons,
-    Spinner
+    Spinner,
+    ConfirmationModal,
 };
