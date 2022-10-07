@@ -8,7 +8,7 @@ import { Alert, Spinner } from '../../shared';
 function JobDetails() {
 
     const { getCurrentJob, currentJob, isLoading, applyForJob, showAlert, hasApplied, isOwner } = useJobsContext();
-    const { company, position, type, skills, description, jobLocation } = currentJob;
+    const { company, position, type, skills, description, jobLocation, seniority, candidates } = currentJob;
     const { id } = useParams();
 
     useEffect(() => {
@@ -24,15 +24,15 @@ function JobDetails() {
             {showAlert && <Alert />}
 
             <section className={styles['job-details-container']}>
-                <h3>{position}</h3>
-                <p>{jobLocation}</p>
-            </section>
-            <section className={styles['job-details-container']}>
-                <h4>Skills: {skills}</h4>
-                <h4>Description:</h4>
+                <div>
+                    <h4><span className={styles['title']}>position: </span>{position}</h4>
+                </div>
+                <p><span className={styles['title']}>location: </span>{jobLocation}</p>
+                <h4><span className={styles['title']}>skills: </span> {skills}</h4>
+                <h4><span className={styles['title']}>description: </span></h4>
                 <p>{description}</p>
-                <p>{type}</p>
-                <p>Company: {company}</p>
+                <p className={styles['title']}>{type}</p>
+                <p><span className={styles['title']}>company: </span> {company}</p>
                 {!isOwner &&
                     <button
                         disabled={hasApplied}

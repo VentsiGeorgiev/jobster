@@ -259,4 +259,17 @@ const jobApply = async (req, res) => {
 
 };
 
-export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats, jobApply };
+const userApply = async (req, res) => {
+    try {
+        const userId = req.user._id.toString();
+        const allAppliedJobs = await Job.aggregate([
+            { $match: { candidates: userId } },
+        ]);
+        res.json(allAppliedJobs);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+
+};
+
+export { createJob, getAllJobs, getMyJobs, deleteJob, updateJob, getJob, getStats, jobApply, userApply };

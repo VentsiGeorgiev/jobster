@@ -117,7 +117,7 @@ function AllJobs() {
                     : <h3>No Jobs Matching Criteria</h3>
                 }
             </section>
-            <PageButtons />
+            {allJobs.length > 0 && <PageButtons />}
         </>
 
     );

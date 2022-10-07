@@ -8,3 +8,9 @@
 .apply-icon {
     margin-right: 6px;
 }
+
+.title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    padding-right: 4px;
+}
