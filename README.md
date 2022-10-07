@@ -2,11 +2,11 @@
 
 Jobster is the best place to find a new job or manage your jobs offers.
 
-#### **Live Demo** [Jobster](https://jobster-vg.herokuapp.com/)
+### **Live Demo** [Jobster](https://jobster-vg.herokuapp.com/)
 
 #### **MERN Project**
 
-MERN is a fullstack implementation in MongoDB, Expressjs, React/Redux, Nodejs.
+MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs.
 The idea of using JavaScript/Node for fullstack web development.
 
 #### **Clone or download**
