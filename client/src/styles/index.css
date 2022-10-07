@@ -264,6 +264,29 @@ li {
     bottom: -1.5rem;
 }
 
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: var(--shadow-3);
+    text-align: left;
+}
+thead {
+    background-color: var(--white);
+}
+thead th:nth-child(1) {
+    width: 20%;
+}
+
+table tr:nth-child(even) {
+    background-color: var(--grey-100);
+}
+
+th,
+td {
+    padding: 10px;
+}
+
 @media screen and (min-width: 860px) {
     .form {
         width: 60%;

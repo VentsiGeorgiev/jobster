@@ -33,6 +33,9 @@ import {
     JOB_APPLY_REJECTED,
     CLEAR_JOB_ALERT,
     TOGGLE_MODAL,
+    FETCH_APPLIED_JOBS_PENDING,
+    FETCH_APPLIED_JOBS_REJECTED,
+    FETCH_APPLIED_JOBS_SUCCESS,
 } from './jobsActions';
 
 const reducer = (state, action) => {
@@ -295,6 +298,26 @@ const reducer = (state, action) => {
                 ...state,
                 currentJob: action.payload,
                 isModalOpen: !state.isModalOpen
+            };
+        case FETCH_APPLIED_JOBS_PENDING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_APPLIED_JOBS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                appliedJobs: action.payload
+            };
+        case FETCH_APPLIED_JOBS_REJECTED:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                isError: true,
+                message: action.payload,
+                alertType: 'danger',
             };
         default:
             throw new Error(`No such action ${action.type}`);

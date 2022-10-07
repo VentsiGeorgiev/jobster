@@ -147,3 +147,8 @@ export async function jobApply(id) {
     return result;
 }
 
+export async function getAppliedJobs() {
+    const result = await get('/api/v1/job/apply-user');
+    return result;
+}
+

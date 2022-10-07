@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
-import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob, getStats, jobApply } from '../../api/api';
-import { CHANGE_PAGE, CLEAR_FORM_DATA, CLEAR_JOB_ALERT, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_CURRENT_JOB_PENDING, FETCH_CURRENT_JOB_REJECTED, FETCH_CURRENT_JOB_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_STATS_JOBS_PENDING, FETCH_STATS_JOBS_REJECTED, FETCH_STATS_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, JOB_APPLY_PENDING, JOB_APPLY_REJECTED, JOB_APPLY_SUCCESS, SET_FORM_DATA, SET_SEARCH_FORM_DATA, TOGGLE_MODAL, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
+import { createJobOffer, getAllJobs, getUserJobs, removeJob, getJob, updateJob, getStats, jobApply, getAppliedJobs } from '../../api/api';
+import { CHANGE_PAGE, CLEAR_FORM_DATA, CLEAR_JOB_ALERT, CREATE_JOB_PENDING, CREATE_JOB_REJECTED, CREATE_JOB_SUCCESS, DELETE_JOB_PENDING, DELETE_JOB_REJECTED, DELETE_JOB_SUCCESS, FETCH_ALL_JOBS_PENDING, FETCH_ALL_JOBS_REJECTED, FETCH_ALL_JOBS_SUCCESS, FETCH_APPLIED_JOBS_PENDING, FETCH_APPLIED_JOBS_REJECTED, FETCH_APPLIED_JOBS_SUCCESS, FETCH_CURRENT_JOB_PENDING, FETCH_CURRENT_JOB_REJECTED, FETCH_CURRENT_JOB_SUCCESS, FETCH_JOB_PENDING, FETCH_JOB_REJECTED, FETCH_JOB_SUCCESS, FETCH_STATS_JOBS_PENDING, FETCH_STATS_JOBS_REJECTED, FETCH_STATS_JOBS_SUCCESS, FETCH_USER_JOBS_PENDING, FETCH_USER_JOBS_REJECTED, FETCH_USER_JOBS_SUCCESS, JOB_APPLY_PENDING, JOB_APPLY_REJECTED, JOB_APPLY_SUCCESS, SET_FORM_DATA, SET_SEARCH_FORM_DATA, TOGGLE_MODAL, TOGGLE_SIDEBAR, UPDATE_JOB_PENDING, UPDATE_JOB_REJECTED, UPDATE_JOB_SUCCESS } from './jobsActions';
 import reducer from './jobsReducer';
 
 const initialState = {
@@ -39,6 +39,7 @@ const initialState = {
     hasApplied: false,
     isOwner: false,
     isModalOpen: false,
+    appliedJobs: {}
 };
 
 const JobsContext = createContext();
@@ -190,7 +191,16 @@ const JobsProvider = ({ children }) => {
         dispatch({ type: TOGGLE_MODAL, payload: id });
     };
 
+    const getAllAppliedJobs = async () => {
+        dispatch({ type: FETCH_APPLIED_JOBS_PENDING });
 
+        try {
+            const response = await getAppliedJobs();
+            dispatch({ type: FETCH_APPLIED_JOBS_SUCCESS, payload: response });
+        } catch (error) {
+            dispatch({ type: FETCH_APPLIED_JOBS_REJECTED, payload: error.message });
+        }
+    };
 
 
     return <JobsContext.Provider value={{
@@ -210,7 +220,8 @@ const JobsProvider = ({ children }) => {
         getSingleJob,
         getCurrentJob,
         applyForJob,
-        toggleDeleteModal
+        toggleDeleteModal,
+        getAllAppliedJobs,
     }}
     >
         {children}
