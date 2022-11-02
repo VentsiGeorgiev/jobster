@@ -9,7 +9,7 @@ function Landing() {
             <Logo />
             <section className={`${styles.hero}`}>
                 <div className={`${styles.info}`}>
-                    <h1>Find the perfect job for you</h1>
+                    <h1 data-testid="heading" >Find the perfect job for you</h1>
                     <p>Search your career opportunity through 10,000+ jobs</p>
                     <Link to='/register' className={`btn ${styles['hero-btn']} btn-primary`}>Login / Register</Link>
                 </div>
